@@ -1,6 +1,13 @@
 import React, { useEffect } from 'react';
 import {
   MDBNavbar,
+  MDBModal,
+  MDBModalDialog,
+  MDBModalHeader,
+  MDBModalBody,
+  MDBModalFooter,
+  MDBModalContent,
+  MDBModalTitle,
 } from "mdb-react-ui-kit";
 import {
   Grid,
@@ -18,6 +25,7 @@ import {
   Menu,
   Box ,
   Tab,
+  TextField,
 } from '@mui/material';
 
 import{
@@ -34,8 +42,12 @@ import {
 
 export default function Medicine(props) {
   const [anchorEl, setAnchorEl] = React.useState(null);
-  const open = Boolean(anchorEl);
+  const [modalOpen,setModalOpen] = React.useState(false);
+  const [modaldata,setModalData] = React.useState(false);
+  const [modalsendtype,setModalSendType] = React.useState('email');
   const [value, setValue] = React.useState('1');
+
+  const open = Boolean(anchorEl);
 
   useEffect(() => {
   }, []);
@@ -53,17 +65,25 @@ export default function Medicine(props) {
   }];
 
   const handleClick = (event) => {
-    console.log(event.currentTarget)
     setAnchorEl(event.currentTarget);
   };
   const handleClose = () => {
     setAnchorEl(null);
   };
 
-  const handleChange = (event,newValue) => {
+  const tabChange = (event,newValue) => {
     setValue(newValue);
   };
-  
+
+  const print = () =>{
+
+  }
+
+  const setModal = (data) =>{
+    setModalOpen(true);
+    setModalData(data);
+  }
+
   return (
     <>
       <MDBNavbar class="navbar navbar-expand-lg navbar-light bg-light">
@@ -398,7 +418,7 @@ export default function Medicine(props) {
                       <h4 className="p-2 m-1">$7.81</h4>
                     </Grid>
                     <Grid item>
-                      <Button  variant="contained" className="py-3" color="success">Get Free Coupon</Button>
+                      <Button  variant="contained" className="py-3" color="success" onClick={() =>setModal({name:'amoxicillin', description:'21 capsule, 500mg for %5.63 at kronger Pharmacy'})}>Get Free Coupon</Button>
                     </Grid>
                   </Grid>
                 </Grid>
@@ -420,7 +440,7 @@ export default function Medicine(props) {
                       <h4 className="p-2 m-1">$7.81</h4>
                     </Grid>
                     <Grid item>
-                      <Button  variant="contained" className="py-3" color="success">Get Free Coupon</Button>
+                      <Button  variant="contained" className="py-3" color="success" onClick={() =>setModal({name:'jolon'})}>Get Free Coupon</Button>
                     </Grid>
                   </Grid>
                 </Grid>
@@ -442,7 +462,7 @@ export default function Medicine(props) {
                       <h4 className="p-2 m-1">$7.81</h4>
                     </Grid>
                     <Grid item>
-                      <Button  variant="contained" className="py-3" color="success">Get Free Coupon</Button>
+                      <Button  variant="contained" className="py-3" color="success" onClick={() =>setModal({name:'lisonpril'})}>Get Free Coupon</Button>
                     </Grid>
                   </Grid>
                 </Grid>
@@ -602,7 +622,7 @@ export default function Medicine(props) {
           <Grid item container direction={"column"}  justifyContent={"center"} alignItems={"center"}>
             <TabContext value={value}>
               <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-                <TabList onChange={handleChange} aria-label="lab API tabs example" textColor="secondary" indicatorColor="secondary">
+                <TabList onChange={tabChange} aria-label="lab API tabs example" textColor="secondary" indicatorColor="secondary">
                   <Tab label="Uses" value="1" />
                   <Tab label="Directions" value="2" />
                   <Tab label="Warnings" value="3" />
@@ -614,9 +634,9 @@ export default function Medicine(props) {
               <TabPanel value="1">Item One</TabPanel>
               <TabPanel value="2">Item Two</TabPanel>
               <TabPanel value="3">Item Three</TabPanel>
-              <TabPanel value="4">Item Three</TabPanel>
-              <TabPanel value="5">Item Three</TabPanel>
-              <TabPanel value="6">Item Three</TabPanel>
+              <TabPanel value="4">Item Four</TabPanel>
+              <TabPanel value="5">Item Five</TabPanel>
+              <TabPanel value="6">Item Six</TabPanel>
             </TabContext>
           </Grid>
           <Grid item container direction={"column"} justifyContent={"center"} alignItems={"center"} className="py-5 px-1 section2_4_5" >
@@ -674,6 +694,66 @@ export default function Medicine(props) {
           </Grid>
         </Grid>
       </Grid>
+      
+      <MDBModal show={modalOpen} setShow={setModalOpen} tabIndex='-1' className='section2_modal'>
+        <MDBModalDialog>
+          <MDBModalContent>
+            <MDBModalHeader>
+              <Grid container direction={"column"}>
+                <Grid item>
+                  <img src='../logo.png' width='100px'/>
+                </Grid>
+                <Grid item container direciton={"column"} alignItems={"center"} justifyContent={"center"}>
+                  <Grid item>
+                    <MDBModalTitle>{modaldata?.name}</MDBModalTitle>
+                  </Grid>
+                  <Grid item>
+                    <span>{modaldata?.description}</span>
+                  </Grid>
+                </Grid>
+              </Grid>
+              <Button></Button>
+            </MDBModalHeader>
+            <MDBModalBody>
+              <Grid container direction={"column"} alignItems={"center"}>
+                <Grid item>
+                  <p>Send this card to yourself or print and bring to the pharmacy</p>
+                </Grid>
+                <Grid item>
+                  <div className='card_image'></div>
+                </Grid>
+                <Grid item container direction={"row"} columnSpacing={"4"} alignItems={"center"} justifyContent={"center"} className="mt-2 selections">
+                  <Grid item>
+                    <Button variant='outlined' onClick={()=>setModalSendType('phone')}>Text</Button>
+                  </Grid>
+                  <Grid item>
+                    <Button variant='outlined' onClick={()=>setModalSendType('email')}>Email</Button>
+                  </Grid>
+                  <Grid item>
+                    <Button variant='outlined' onClick={()=>print()}>Print</Button>
+                  </Grid>
+                </Grid>
+                <Grid item container direction={"row"} columnSpacing={2} alignItems={"center"} justifyContent={"center"} className="mt-2">
+                  <Grid item>
+                    <TextField
+                      label={modalsendtype=="email"?"Email address":"Phone number"}
+                      size="small"
+                      variant="standard"
+                      required
+                    />
+                  </Grid>
+                  <Grid item>
+                    <Button variant='outlined'>Send</Button>
+                  </Grid>
+                </Grid>
+                <Grid item className='mt-2'>
+                  <span>By clicking "Send". I agree to Singlecare's Terms & Conditions.</span>
+                </Grid>
+              </Grid>
+            </MDBModalBody>
+          </MDBModalContent>
+        </MDBModalDialog>
+      </MDBModal>
     </>
   );
 }

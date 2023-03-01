@@ -209,6 +209,55 @@
     color:white;
 }
 
+.section2_modal .card_image{
+  background: url('asserts/img/singlecare-card.png');
+  background-size:cover;
+  width: 200px;
+  height: 126px;
+}
+
+.section2_modal .card_image:before{
+    background: url('asserts/img/pill-oblong-pink.png') no-repeat;
+    background-position: 20px 50px;
+    background-size: 50px;
+    content: '';
+    display: inline-block;
+    height: 200px;
+    width: 100px;
+    position: absolute;
+    left: 0%;
+    top: 0%;
+    transform: rotate(-12deg);
+  }
+
+  .section2_modal .card_image:after{
+        background: url('asserts/img/pill-oblong-pink.png') no-repeat;
+        background-position: 20px 50px;
+        background-size: 50px;
+        content: '';
+        display: inline-block;
+        height: 200px;
+        width: 100px;
+        position: absolute;
+        right: 0%;
+        top: 0%;
+        transform: rotate(-92deg);
+    }
+    
+  .section2_modal .selections:before{
+    background: url('asserts/img/pill-oblong-pink.png') no-repeat;
+    background-position: 50px 150px;
+    background-size: 50px;
+    content: '';
+    display: inline-block;
+    height: 400px;
+    position: absolute;
+    left: 0%;
+    top: 0%;
+    transform: rotate(0deg);
+    width: 200px;
+}
+
 h1,h2,h3 {
     line-height: 120% !important;
     font-weight: 300 !important;
