@@ -1,0 +1,215 @@
+
+.section1_1{
+    background:#79d2fe url('asserts/img/bg-masthead.jpg') bottom center no-repeat ;
+    background-position: bottom -130px center;
+    background-size: cover;
+    color:white;
+}
+
+.section1_1 .searchBox input:focus{
+    border: none;
+}
+
+.section1_2{
+    background: url('asserts/img/bg-map-sample.png') center center no-repeat;
+    height: 450px;
+    padding-top: 30px;
+}
+
+.section1_3{
+    color:black;
+    
+}
+
+.section1_3 .step1{
+    background: url('asserts/img/sprite-steps-coupon.png') no-repeat;
+    background-size: 146px 480px;
+    height: 146px;
+    width: 200px;
+    margin-bottom: 30px;
+    background-position: top center;
+}
+
+.section1_3 .step2{
+    background: url('asserts/img/sprite-steps-coupon.png') no-repeat;
+    background-size: 146px 480px;
+    height: 146px;
+    width: 200px;
+    margin-bottom: 30px;
+    background-position: center center;
+}
+
+.section1_3 .step3{
+    background: url('asserts/img/sprite-steps-coupon.png') no-repeat;
+    background-size: 146px 480px;
+    height: 146px;
+    width: 200px;
+    margin-bottom: 30px;
+    background-position: bottom center;
+}
+
+.section1_4{
+    background: #f9f9f9;
+}
+
+.section1_5{
+    background: #565a5c;
+    color:white;
+}
+
+.section1_5 .social{
+    background-image: url('asserts/img/sc-footer-sprite@2x.png');
+    background-repeat: no-repeat;
+    background-size: 270px 1200px;
+    content: '';
+    display: inline-block;
+    height: 34px;
+    width: 34px;
+}
+
+.section1_5 .facebook{
+    background-position:top -300px left -120px
+}
+.section1_5 .instagram{
+    background-position:top -750px left -120px
+}
+.section1_5 .linkedin{
+    background-position:top -484px left -120px
+}
+.section1_5 .twitter{
+    background-position:top -392px left -120px
+}
+.section1_5 .trustpilot{
+    background-position:top -842px left -120px
+}
+
+.section1_5 .pharmacy{   
+    background: url('asserts/img/sc-logo-nabp@2x.png') top center no-repeat;
+    background-size: 159px 35px;
+    display: block;
+    height: 35px;
+    width: 159px;
+}
+
+.section1_5 .bbb{
+    background: url('asserts/img/sc-footer-sprite@2x.png') no-repeat;
+    background-position: top -80px center;
+    background-size: 135px 600px;
+    display: block;
+    font-size: 0;
+    height: 40px;
+    width: 104px;
+}
+
+.section1_5 .appstore{
+    background: url('asserts/img/sc-footer-sprite@2x.png') no-repeat;
+    background-position: top -466px center;
+    background-size: 135px 600px;
+    display: block;
+    font-size: 0;
+    height: 41px;
+    width: 120px;
+}
+
+.section1_5 .googleplay{
+    background: url('asserts/img/sc-footer-sprite@2x.png') no-repeat;
+    background-position: top -536px center;
+    background-size: 135px 600px;
+    display: block;
+    font-size: 0;
+    height: 41px;
+    width: 135px;
+}
+
+.section2_2{
+    color: white;
+    background: #2b91c5;
+}
+
+.section2_2 svg{
+    width:256px;
+    height: 100px;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.section2_2 .cvs{
+    background-size: 218px 29px;
+    background-image: url('asserts/img/logo-white-cvs.svg');
+}
+
+.section2_2 .target{
+    background-size: 176px 39px;
+    background-image: url('asserts/img/logo-white-target.svg');
+}
+
+.section2_2 .longs{
+    background-size: 216px 38px;
+    background-image: url('asserts/img/logo-white-longs.svg');
+}
+
+.section2_2 .walmart{
+    background-size: 216px 38px;
+    background-image: url('asserts/img/logo-white-walmart.svg');
+}
+.section2_2 .kronger{
+    background-size: 216px 38px;
+    background-image: url('asserts/img/logo-white-kroger.svg');
+}
+.section2_2 .frys{
+    background-size: 216px 38px;
+    background-image: url('asserts/img/logo-white-frys.svg');
+}
+.section2_2 .harristeeter{
+    background-size: 216px 38px;
+    background-image: url('asserts/img/logo-white-harristeeter.svg');
+}
+.section2_2 .walgreens{
+    background-size: 216px 38px;
+    background-image: url('asserts/img/logo-white-walgreens.svg');
+}
+.section2_2 .duanereade{
+    background-size: 216px 38px;
+    background-image: url('asserts/img/logo-white-duanereade.png');
+}
+
+.section2_3{
+    background-color: #f3f3f3;
+}
+
+.section2_4_5 .step1{
+    background: url('asserts/img/sprite-steps-coupon.png') no-repeat;
+    background-size: 146px 480px;
+    height: 146px;
+    width: 300px;
+    margin-bottom: 30px;
+    background-position: top center;
+}
+
+.section2_4_5 .step2{
+    background: url('asserts/img/sprite-steps-coupon.png') no-repeat;
+    background-size: 146px 480px;
+    height: 146px;
+    width: 300px;
+    margin-bottom: 30px;
+    background-position: center center;
+}
+
+.section2_4_5 .step3{
+    background: url('asserts/img/sprite-steps-coupon.png') no-repeat;
+    background-size: 146px 480px;
+    height: 146px;
+    width: 300px;
+    margin-bottom: 30px;
+    background-position: bottom center;
+}
+
+.section2_5{
+    background: #565a5c;
+    color:white;
+}
+
+h1,h2,h3 {
+    line-height: 120% !important;
+    font-weight: 300 !important;
+}
