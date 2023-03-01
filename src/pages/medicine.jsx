@@ -129,7 +129,7 @@ export default function Medicine(props) {
                         <Search />
                       </IconButton>
                     </Grid>
-                    <Grid item md={8} className='searchBox'>
+                    <Grid item md={8} className='searchBox p-1 m-1'>
                       <Autocomplete
                         sx={{
                           display: 'block',
@@ -379,6 +379,74 @@ export default function Medicine(props) {
                       </Grid>
                     </Paper>
                 </Grid>             
+            </Grid>
+          </Grid>
+          <Grid item container direction={"column"} alignItems={"center"} justifyContent={"center"} className="mt-2">
+            <Grid item sx={{width:'100%'}} className="mt-2">
+              <Paper elevation={"3"} className="p-4">
+                <Grid container direction={"row"}>
+                  <Grid item container direciton={"row"} alignItems={"center"} justifyContent={"flex-start"}  md={6}>
+                    <Grid item>
+                      
+                    </Grid>
+                    <Grid item>
+                      2.15miles away
+                    </Grid>
+                  </Grid>
+                  <Grid item container direciton={"row"} alignItems={"center"} justifyContent={"flex-end"}  md={6}>
+                    <Grid item>
+                      <h4 className="p-2 m-1">$7.81</h4>
+                    </Grid>
+                    <Grid item>
+                      <Button  variant="contained" className="py-3" color="success">Get Free Coupon</Button>
+                    </Grid>
+                  </Grid>
+                </Grid>
+              </Paper>
+            </Grid>
+            <Grid item sx={{width:'100%'}} className="mt-2">
+              <Paper elevation={"3"} className="p-4">
+                <Grid container direction={"row"}>
+                  <Grid item container direciton={"row"} alignItems={"center"} justifyContent={"flex-start"}  md={6}>
+                    <Grid item>
+                      
+                    </Grid>
+                    <Grid item>
+                      2.15miles away
+                    </Grid>
+                  </Grid>
+                  <Grid item container direciton={"row"} alignItems={"center"} justifyContent={"flex-end"}  md={6}>
+                    <Grid item>
+                      <h4 className="p-2 m-1">$7.81</h4>
+                    </Grid>
+                    <Grid item>
+                      <Button  variant="contained" className="py-3" color="success">Get Free Coupon</Button>
+                    </Grid>
+                  </Grid>
+                </Grid>
+              </Paper>
+            </Grid>
+            <Grid item sx={{width:'100%'}} className="mt-2">
+              <Paper elevation={"3"} className="p-4">
+                <Grid container direction={"row"}>
+                  <Grid item container direciton={"row"} alignItems={"center"} justifyContent={"flex-start"}  md={6}>
+                    <Grid item>
+                      
+                    </Grid>
+                    <Grid item>
+                      2.15miles away
+                    </Grid>
+                  </Grid>
+                  <Grid item container direciton={"row"} alignItems={"center"} justifyContent={"flex-end"}  md={6}>
+                    <Grid item>
+                      <h4 className="p-2 m-1">$7.81</h4>
+                    </Grid>
+                    <Grid item>
+                      <Button  variant="contained" className="py-3" color="success">Get Free Coupon</Button>
+                    </Grid>
+                  </Grid>
+                </Grid>
+              </Paper>
             </Grid>
           </Grid>
         </Grid>
