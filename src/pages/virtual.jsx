@@ -1,4 +1,6 @@
 import React, { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+
 import {
   MDBNavbar,
 } from "mdb-react-ui-kit";
@@ -13,63 +15,73 @@ import {
   IconButton,
   Button,
   Autocomplete,
+  Backdrop,
+  CircularProgress,
 } from '@mui/material';
 import {
   Search
 } from '@mui/icons-material';
 import Carousel from 'react-material-ui-carousel'
 
+import axios from '../config/server.config';
 import '../customize.css';
 
-
 export default function Virtual(props) {
+  const [popularMedicineData, setPopularMedicineData] = React.useState([]);
+  const [pricings, setPricings] = React.useState([]);
+  const [medicineData, setMedicineData] = React.useState([]);
+  const [loading, setLoading] = React.useState(false);
+  const [selMidicine, setSelMedicine] = React.useState(0);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
+    setLoading(true);
+    axios
+    .get('v1/popular')
+    .then(function(res){
+      console.log(res);
+      setPopularMedicineData(res.data.popular_now);
+      setMedicineData(res.data.popular_now);
+      setPricings(res.data.sample_pricing);
+      setLoading(false);
+    });
   }, []);
 
-  const options = [{
-    label:'Amoxicillin',
-  },{
-    label:'Lisinopril (Zestril)',
-  },{
-    label:'Amoxicillin',
-  },{
-    label:'Amoxicillin',
-  },{
-    label:'Amoxicillin',
-  }]
-
-  const medicines = [{
-    name: "Amoxillin",
-    amount: "500mg, 30capsules"
-  },{
-    name: "Lisinopril",
-    amount: "20mg, 30tablets"
-  },{
-    name: "Alprazolam",
-    amount: "1mg, 90tablets"
-  },{
-    name: "Prednisone",
-    amount: "20mg, 10tablets"
-  }];
+  const setSearchResult = (e,val) =>{
+    if(val == ""){
+      setMedicineData(popularMedicineData);
+    }else{
+      axios
+      .get('v1/search?q='+e.target.value)
+      .then(function(res){
+        setMedicineData(res.data);
+      });
+    }
+  }
+  const goDetail = (e,val) =>{
+    navigate("/virtualme/"+val.seo_name);
+  }
+  const changePricing = (e) =>{
+    setSelMedicine(e);
+  }
 
   const Medicine = (props) =>{
     return(
       <Paper className='text-center'>
           <span>SAMPLE PRICING FOR</span>
-          <Link href= {"virtualme/"+props.item.name}><h2>{props.item.name}</h2></Link>
-          <span>{props.item.amount}</span>
+          <Link href= {"/virtualme/"+props.item.name}><h2>{props.item.name}</h2></Link>
+          <span>{props.item.amt}</span>
       </Paper>
     );
   }
 
-
   return (
     <>
-      <MDBNavbar class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="container-fluid">
-          <div class="collapse navbar-collapse">
-            <a class="navbar-brand py-2 px-1" href="#">
+      <MDBNavbar className="navbar navbar-expand-lg navbar-light bg-light">
+        <div className="container-fluid">
+          <div className="collapse navbar-collapse">
+            <a className="navbar-brand py-2 px-1" href="#">
               <img
                 src="logo.png"
                 height="23"
@@ -78,22 +90,11 @@ export default function Virtual(props) {
               />
             </a>
           </div>
-          {/* <ul class="navbar-nav me-auto">
-            <li class="nav-item">
-              <a class="nav-link" href="#">How it works</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Support</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Login</a>
-            </li>
-          </ul> */}
         </div>
       </MDBNavbar>
       
       <Grid container direction={"row"} justifyContent={"center"} alignItems={"center"} className="py-5 section1_1">
-        <Grid container md={5} direction={"column"} alignItems={"center"} justifyContent={"center"}>
+        <Grid item container md={5} direction={"column"} alignItems={"center"} justifyContent={"center"}>
           <Grid item>
             <h1>Save up to 80%* on your prescriptions</h1>
           </Grid>
@@ -123,7 +124,12 @@ export default function Virtual(props) {
                           theme.palette.getContrastText(theme.palette.background.paper),
                       },
                     }}
-                    options={options}
+                    options={medicineData}
+                    onInputChange={(e,val) =>setSearchResult(e,val)}
+                    onChange={(e,val) => goDetail(e,val)}
+                    onBlur={() =>setMedicineData(popularMedicineData)}
+                    getOptionLabel={option => option.display_name}
+
                     renderInput={(params) => (
                       <div ref={params.InputProps.ref}>
                         <input type="text" placeholder='Search prescriptions' {...params.inputProps} />
@@ -140,20 +146,28 @@ export default function Virtual(props) {
         </Grid>
       </Grid>
 
-      <Grid container direction={"row"} justifyContent={"center"} alignItems={"flex-start"} className="py-5 section1_2">
-        <Grid container md={5} direction={"column"} alignItems={"center"} justifyContent={"flex-start"}>
+      <Grid container direction={"row"} justifyContent={"center"} alignItems={"flex-start"} className="py-3 section1_2">
+        <Grid item container md={5} direction={"column"} alignItems={"center"} justifyContent={"flex-start"}>
           <Grid item sx={{width:'100%'}}>
-            <Carousel>
+            <Carousel onChange ={(e) => changePricing(e)}>
               {
-                medicines.map((medicine)=><Medicine item={medicine}/>)
+                pricings.length !== 0 && pricings.map((medicine,index)=><Medicine key={index} item={medicine}/>)
               }
             </Carousel>
+          </Grid>
+          <Grid item >
+            <div className='green_pin text-center'>{pricings.length !== 0 && pricings[selMidicine]?.price_green_pin}</div>
+            {
+             pricings.length !== 0 &&  pricings[selMidicine].prices_grey_pin?.map((grey_pin,index) =>{
+                return <div key={index} className={'grey_pin grey_pin'+index}>{grey_pin}</div>
+              })
+            }
           </Grid>
         </Grid>
       </Grid>
 
       <Grid container direction={"row"} justifyContent={"center"} alignItems={"center"} className="py-5 section1_3">
-        <Grid container md={5} direction={"column"} alignItems={"center"} justifyContent={"center"}>
+        <Grid item container md={5} direction={"column"} alignItems={"center"} justifyContent={"center"}>
           <Grid item>
             <h3 className='mb-3'>Saving on prescriptions has never been easier</h3>
           </Grid>
@@ -196,7 +210,7 @@ export default function Virtual(props) {
       </Grid>
 
       <Grid container direction={"row"} justifyContent={"center"} alignItems={"center"} className="py-5 section1_4">
-        <Grid container md={6} direction={"column"} alignItems={"center"} justifyContent={"center"}>
+        <Grid item container md={6} direction={"column"} alignItems={"center"} justifyContent={"center"}>
           <Grid item className="mb-2">
             <h3>Prescription FAQs</h3>
           </Grid>
@@ -251,10 +265,9 @@ export default function Virtual(props) {
           </Grid>
         </Grid>
       </Grid>
-
-      
+   
       <Grid container direction={"row"} justifyContent={"center"} alignItems={"center"} className="py-5 section1_5">
-        <Grid container md={7} direction={"row"} alignItems={"center"} justifyContent={"center"}>
+        <Grid container item md={7} direction={"row"} alignItems={"center"} justifyContent={"center"}>
           <Grid item container direction={"column"} md={3}>
             <Grid item>
               <h5 className='mb-2'>SINGLECARE</h5>
@@ -336,12 +349,10 @@ export default function Virtual(props) {
             <Grid item className='mb-2'><Link target="_blank" href="https://play.google.com/store/apps/details?id=com.singlecare.scma&hl=en_US"><span className="store googleplay"></span></Link></Grid>
           </Grid>
           <Grid item justifyContent={"center"} alignItems={"center"} className="mt-4">
-            <Typography>
               <p>© 2023 SingleCare Administrators. All Rights Reserved.</p>
               <p>* Prescription savings vary by prescription and by pharmacy, and may reach up to 80% off cash price.</p>
               <p>Pharmacy names, logos, brands, and other trademarks are the property of their respective owners.</p>
               <p>This is a prescription discount plan. This is NOT insurance nor a Medicare prescription drug plan. The range of discounts for prescriptions provided under this discount plan will vary depending on the prescription and the pharmacy where the prescription is purchased and may reach up to 80% off the cash price. You are fully responsible for paying for your prescriptions at the pharmacy at the time of service but will be entitled to receive a discount from the pharmacy in accordance with the specific pre-negotiated discounted fee schedule. Towers Administrators LLC (doing business as "SingleCare Administrators") is the licensed prescription discount plan organization with its administrative office located at 4510 Cox Road, Suite 111, Glen Allen, VA 23060. SingleCare Services LLC ("SingleCare") is the marketer of the prescription discount plan including its website located at www.singlecare.com. For additional information, including an up-to-date list of pharmacies, or assistance with any issue related to this prescription discount plan, please contact customer support by calling toll-free 844-234-3057, 24 hours, 7 days a week (except major holidays). By using the SingleCare prescription discount card or app, you are agreeing to the SingleCare Terms and Conditions located at https://www.singlecare.com/terms-and-conditions.</p>
-            </Typography>
           </Grid>
           <Grid item container direction={"column"} justifyContent={"center"} alignItems={"flex-end"}>
             <Grid item>
@@ -355,6 +366,13 @@ export default function Virtual(props) {
           </Grid>
         </Grid>
       </Grid>
+
+      <Backdrop
+        sx={{ color: '#fff', zIndex: 2 }}
+        open={loading}
+      >
+        <CircularProgress color="inherit" />
+      </Backdrop>
     </>
   );
 }

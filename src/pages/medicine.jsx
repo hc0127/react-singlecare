@@ -1,4 +1,6 @@
 import React, { useEffect } from 'react';
+import { useParams,useNavigate } from 'react-router-dom';
+
 import {
   MDBNavbar,
   MDBModal,
@@ -9,6 +11,7 @@ import {
   MDBModalContent,
   MDBModalTitle,
 } from "mdb-react-ui-kit";
+
 import {
   Grid,
   Card,
@@ -26,6 +29,8 @@ import {
   Box ,
   Tab,
   TextField,
+  Backdrop,
+  CircularProgress
 } from '@mui/material';
 
 import{
@@ -40,36 +45,147 @@ import {
   ArrowDropDownCircle
 } from '@mui/icons-material';
 
+import axios from '../config/server.config';
+
 export default function Medicine(props) {
+  //interface
   const [anchorEl, setAnchorEl] = React.useState(null);
+  const [which, setWhich] = React.useState(null);
   const [modalOpen,setModalOpen] = React.useState(false);
   const [modaldata,setModalData] = React.useState(false);
   const [modalsendtype,setModalSendType] = React.useState('email');
+  const [loading, setLoading] = React.useState(false);
   const [value, setValue] = React.useState('1');
+  
+  //zipcode
+  const [focuseZipcode,setFocusZipcode] = React.useState(false);
+  const [zipdata, setZipdata] = React.useState({city:'',zip_code:77084});
+  const [tmp_zipcode, setTmpZipcode] = React.useState('');
+
+  //dynamic datas
+  const [popularMedicineData, setPopularMedicines] = React.useState([]);
+  const [medicineData, setMedicines] = React.useState([]);
+  const [drugData, setDrugs] = React.useState([]);
+  const [pharmacyData,setPharmacies] = React.useState([]);
+  const [mainData,setMainData] = React.useState([]);
+  const [brand, setBrand] = React.useState(0);
+  const [form, setForm] = React.useState(0);
+  const [dosage, setDosage] = React.useState(0);
+  const [quantity, setQuantity] = React.useState(0);
 
   const open = Boolean(anchorEl);
+  const navigate = useNavigate();
+  const params = useParams();
+
+  const fetchData = async () => {
+    await axios
+    .get('v1/drugs-by-seo-name/'+params.medicine)
+    .then(function(res){
+      setMainData(res.data);
+      axios
+      .get('v1/drug/'+res.data[0].Value[0].Value[0].Value[0].Value.NDC)
+      .then(function(drugRes){
+        setDrugs(drugRes.data);
+        axios
+        .get('v1/price/'+res.data[0].Value[0].Value[0].Value[0].Value.NDC+'/'+res.data[0].Value[0].Value[0].Value[0].Key+'/'+zipdata.zip_code)
+        .then(function(PharRes){
+          setPharmacies(PharRes.data);
+        });
+      });
+    });
+
+    await axios
+    .get('v1/popular')
+    .then(function(res){
+      setPopularMedicines(res.data.popular_now);
+      setMedicines(res.data.popular_now);
+      setLoading(false);
+    });
+  }
 
   useEffect(() => {
+    setLoading(true);
+    fetchData();
   }, []);
 
-  const options = [{
-    label:'Amoxicillin',
-  },{
-    label:'Lisinopril (Zestril)',
-  },{
-    label:'Amoxicillin',
-  },{
-    label:'Amoxicillin',
-  },{
-    label:'Amoxicillin',
-  }];
+  const setSearchResult = (e,val) =>{
+    if(val == ""){
+      setMedicines(popularMedicineData);
+    }else{
+      axios
+      .get('v1/search?q='+e.target.value)
+      .then(function(res){
+        setMedicines(res.data);
+      });
+    }
+  }
 
-  const handleClick = (event) => {
+  const handleClick = (event,which) => {
     setAnchorEl(event.currentTarget);
+    setWhich(which);
   };
+
   const handleClose = () => {
     setAnchorEl(null);
   };
+
+  const formatData = () =>{
+    setBrand(0);
+    setForm(0);
+    setDosage(0);
+    setQuantity(0);
+  }
+
+  const changeBrand = (val) =>{
+    setLoading(true);
+    handleClose();
+    setBrand(val);
+    setForm(0);
+    setDosage(0);
+    setQuantity(0);
+    axios
+    .get('v1/price/'+mainData[brand].Value[0].Value[0].Value[0].Value.NDC+'/'+mainData[brand].Value[0].Value[0].Value[0].Key+'/'+zipdata.zip_code)
+    .then(function(PharRes){
+      setPharmacies(PharRes.data);
+      setLoading(false);
+    });
+  }
+  const changeForm = (val) =>{
+    setLoading(true);
+    handleClose();
+    setForm(val);
+    setDosage(0);
+    setQuantity(0);
+    axios
+    .get('v1/price/'+mainData[brand].Value[val].Value[0].Value[0].Value.NDC+'/'+mainData[brand].Value[val].Value[0].Value[0].Key+'/'+zipdata.zip_code)
+    .then(function(PharRes){
+      setPharmacies(PharRes.data);
+      setLoading(false);
+    });
+  }
+  const changeDosage = (val) =>{
+    setLoading(true);
+    handleClose();
+    setDosage(val);
+    setQuantity(0);
+    axios
+    .get('v1/price/'+mainData[brand].Value[form].Value[val].Value[0].Value.NDC+'/'+mainData[brand].Value[form].Value[val].Value[0].Key+'/'+zipdata.zip_code)
+    .then(function(PharRes){
+      setPharmacies(PharRes.data);
+      setLoading(false);
+    });
+  }
+  const changeQuantity = (val) =>{
+    setLoading(true);
+    handleClose();
+    setQuantity(val);
+    axios
+    .get('v1/price/'+mainData[brand].Value[form].Value[dosage].Value[val].Value.NDC+'/'+mainData[brand].Value[form].Value[dosage].Value[val].Key+'/'+zipdata.zip_code)
+    .then(function(PharRes){
+      setPharmacies(PharRes.data);
+      setLoading(false);
+    });
+  }
 
   const tabChange = (event,newValue) => {
     setValue(newValue);
@@ -79,17 +195,63 @@ export default function Medicine(props) {
 
   }
 
+  const changeZipcode = (e) =>{
+    setTmpZipcode(e.target.value);
+    if(e.target.value.length == 5){
+      setLoading(true);
+      axios.get('v1/zip_code/'+e.target.value).then(function(res){
+        setFocusZipcode(false);
+        setZipdata(res.data);
+        formatData();
+        fetchData();
+      })
+    }
+  }
+
+  const setZipcode = () =>{
+    setTmpZipcode(zipdata.zip_code);
+    setFocusZipcode(true);
+  }
+  
   const setModal = (data) =>{
     setModalOpen(true);
     setModalData(data);
   }
+  
+  const goDetail = (e,val) =>{
+    console.log(val);
+    setLoading(true);
+    formatData();
+    navigate("/virtualme/"+val.seo_name);
+    const fetchData = async() =>{
+      await axios
+      .get('v1/drugs-by-seo-name/'+val.seo_name)
+      .then(function(res){
+        setMainData(res.data);
+        axios
+        .get('v1/drug/'+res.data[0].Value[0].Value[0].Value[0].Value.NDC)
+        .then(function(drugRes){
+          setDrugs(drugRes.data);
+          axios
+          .get('v1/price/'+res.data[0].Value[0].Value[0].Value[0].Value.NDC+'/'+res.data[0].Value[0].Value[0].Value[0].Key+'/'+zipdata.zip_code)
+          .then(function(PharRes){
+            setPharmacies(PharRes.data);
+            setLoading(false);
+          });
+        });
+      });
+    }
+    fetchData();
+  }
+
+  const ready = mainData.length == 0 ? false : true;
 
   return (
     <>
-      <MDBNavbar class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="container-fluid">
-          <div class="collapse navbar-collapse">
-            <a class="navbar-brand py-2 px-1" href="#">
+      <MDBNavbar className="navbar navbar-expand-lg navbar-light bg-light">
+        <div className="container-fluid">
+          <div className="collapse navbar-collapse">
+            <a className="navbar-brand py-2 px-1" href="#">
               <img
                 src="../logo.png"
                 height="23"
@@ -102,7 +264,7 @@ export default function Medicine(props) {
       </MDBNavbar>
 
       <Grid container direction={"row"} justifyContent={"center"} alignItems={"center"} className="py-5 px-1 section2_1">
-        <Grid container xs={12} sm={9} md={6}  direction={"column"} alignItems={"center"} justifyContent={"center"}>
+        <Grid item container xs={12} sm={9} md={6}  direction={"column"} alignItems={"center"} justifyContent={"center"}>
           <Grid item container spacing={2} direction={"row"} alignItems={"center"} justifyContent={"center"} className="mt-2">
               <Grid item md={4}>
                 <Paper
@@ -116,24 +278,19 @@ export default function Medicine(props) {
                       </IconButton>
                     </Grid>
                     <Grid item md={10} className='searchBox'>
-                      <Autocomplete
-                        sx={{
-                          display: 'block',
-                          '& input': {
-                            width:'100%',
-                            border:'none',
-                            bgcolor: 'background.paper',
-                            color: (theme) =>
-                              theme.palette.getContrastText(theme.palette.background.paper),
-                          },
-                        }}
-                        options={options}
-                        renderInput={(params) => (
-                          <div ref={params.InputProps.ref}>
-                            <input type="text" placeholder='Search prescriptions' {...params.inputProps} />
-                          </div>
-                        )}
-                      />
+                      {focuseZipcode == true ?
+                        <TextField 
+                          fullWidth 
+                          size={"small"} 
+                          autoFocus={focuseZipcode} 
+                          variant="standard" 
+                          onBlur={() =>setFocusZipcode(false)} 
+                          onChange={(e) =>changeZipcode(e)} 
+                          value={tmp_zipcode}
+                        />
+                        :
+                        <Button fullWidth onClick={() =>setZipcode()}>{''+zipdata.city}</Button>
+                      }
                     </Grid>
                   </Grid>
                 </Paper>
@@ -154,14 +311,19 @@ export default function Medicine(props) {
                         sx={{
                           display: 'block',
                           '& input': {
-                            width:'100%',
+                            width: '100%',
                             border:'none',
                             bgcolor: 'background.paper',
                             color: (theme) =>
                               theme.palette.getContrastText(theme.palette.background.paper),
                           },
                         }}
-                        options={options}
+                        options={medicineData}
+                        onInputChange={(e,val) =>setSearchResult(e,val)}
+                        onChange={(e,val) => goDetail(e,val)}
+                        onBlur={() =>setMedicines(popularMedicineData)}
+                        getOptionLabel={option => option.display_name}
+
                         renderInput={(params) => (
                           <div ref={params.InputProps.ref}>
                             <input type="text" placeholder='Search prescriptions' {...params.inputProps} />
@@ -180,26 +342,24 @@ export default function Medicine(props) {
             <Grid item container md={12} alignItems={"center"} justifyContent={"center"}>
                 <Grid item>
                     <Paper className='p-2'>
-                      <h2>Amoxicillin: Coupons, Prices & Discounts</h2>
-                      <p>Amoxicillin is a type of antibiotic that is used to treat infections caused by bacteria. There is not an Amoxicillin generic drug currently available. The average price for Amoxicillin 125 mg is about $9 for a supply of 14 chewable tablets. Using our SingleCare savings card you can get up to 80% discount at participating pharmacies near you</p>
+                      <h2>{ready && mainData[brand].Value[form].Value[dosage].Value[quantity].Value.MetaTitle}</h2>
+                      <p>{ready && mainData[brand].Value[form].Value[dosage].Value[quantity].Value.Description}</p>
                       <Divider />
                       <Grid container direction={"row"} columnSpacing={2} className="p-2" alignItems={"center"} justifyContent={"flex-start"}>
                           <Grid item>
-                            <label>Generic</label>
-                          </Grid>
-                          <Grid item>
+                            <label>{ready && mainData[brand].Key}</label>
                             <IconButton
-                              onClick={handleClick}
-                              aria-controls={open ? 'menu1' : undefined}
+                              onClick={(e) =>handleClick(e,1)}
+                              aria-controls={open && which == 1 && which == 1 ? 'menu1' : undefined}
                               aria-haspopup="true"
-                              aria-expanded={open ? 'true' : undefined}
+                              aria-expanded={open && which == 1 && which == 1 ? 'true' : undefined}
                             >
                               <ArrowDropDownCircle />
                             </IconButton>
                             <Menu
                               anchorEl={anchorEl}
                               id="menu1"
-                              open={open}
+                              open={open && which == 1}
                               onClose={handleClose}
                               onClick={handleClose}
                               PaperProps={{
@@ -224,35 +384,32 @@ export default function Medicine(props) {
                               }}
                               transformOrigin={{ horizontal: 'right', vertical: 'top' }}
                               anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
-                            > 
-                              <ListSubheader>Select Form1</ListSubheader>
-                              <MenuItem onClick={handleClose}>
-                                Add another account
-                              </MenuItem>
-                              <MenuItem onClick={handleClose}>
-                                Settings
-                              </MenuItem>
-                              <MenuItem onClick={handleClose}>
-                                Logout
-                              </MenuItem>
+                            >
+                              <ListSubheader>Select Brand</ListSubheader>
+                              {
+                                ready &&
+                                mainData.map((brand,index)=>{
+                                  return <MenuItem key={index} onClick={() =>changeBrand(index)}>
+                                    {brand.Key}
+                                  </MenuItem>
+                                })
+                              }
                             </Menu>
                           </Grid>
                           <Grid item>
-                            <label>Capsule </label>
-                          </Grid>
-                          <Grid item>
+                            <label>{ready && mainData[brand].Value[form].Key}</label>
                             <IconButton
-                              onClick={handleClick}
-                              aria-controls={open ? 'menu2' : undefined}
+                              onClick={(e) =>handleClick(e,2)}
+                              aria-controls={open && which == 2 ? 'menu2' : undefined}
                               aria-haspopup="true"
-                              aria-expanded={open ? 'true' : undefined}
+                              aria-expanded={open && which == 2 ? 'true' : undefined}
                             >
                               <ArrowDropDownCircle />
                             </IconButton>
                             <Menu
                               anchorEl={anchorEl}
                               id="menu2"
-                              open={open}
+                              open={open && which == 2}
                               onClose={handleClose}
                               onClick={handleClose}
                               PaperProps={{
@@ -278,34 +435,31 @@ export default function Medicine(props) {
                               transformOrigin={{ horizontal: 'right', vertical: 'top' }}
                               anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
                             > 
-                              <ListSubheader>Select Form2</ListSubheader>
-                              <MenuItem onClick={handleClose}>
-                                Capsule 
-                              </MenuItem>
-                              <MenuItem onClick={handleClose}>
-                                Settings
-                              </MenuItem>
-                              <MenuItem onClick={handleClose}>
-                                Logout
-                              </MenuItem>
+                              <ListSubheader>Select Form</ListSubheader>
+                              {
+                                ready &&
+                                mainData[brand].Value.map((form,index)=>{
+                                  return <MenuItem key={index} onClick={() =>changeForm(index)}>
+                                    {form.Key}
+                                  </MenuItem>
+                                })
+                              }
                             </Menu>
                           </Grid>
                           <Grid item>
-                            <label>500mg </label>
-                          </Grid>
-                          <Grid item>
+                            <label>{ready && mainData[brand].Value[form].Value[dosage].Key}</label>
                             <IconButton
-                              onClick={handleClick}
-                              aria-controls={open ? 'menu3' : undefined}
+                              onClick={(e) =>handleClick(e,3)}
+                              aria-controls={open && which == 3 ? 'menu3' : undefined}
                               aria-haspopup="true"
-                              aria-expanded={open ? 'true' : undefined}
+                              aria-expanded={open && which == 3 ? 'true' : undefined}
                             >
                               <ArrowDropDownCircle />
                             </IconButton>
                             <Menu
                               anchorEl={anchorEl}
                               id="menu3"
-                              open={open}
+                              open={open && which == 3}
                               onClose={handleClose}
                               onClick={handleClose}
                               PaperProps={{
@@ -331,34 +485,31 @@ export default function Medicine(props) {
                               transformOrigin={{ horizontal: 'right', vertical: 'top' }}
                               anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
                             > 
-                              <ListSubheader>Select Form3</ListSubheader>
-                              <MenuItem onClick={handleClose}>
-                                Capsule 
-                              </MenuItem>
-                              <MenuItem onClick={handleClose}>
-                                Settings
-                              </MenuItem>
-                              <MenuItem onClick={handleClose}>
-                                Logout
-                              </MenuItem>
+                              <ListSubheader>Select Dosage</ListSubheader>
+                              {
+                                ready &&
+                                mainData[brand].Value[form].Value.map((dosage,index)=>{
+                                  return <MenuItem key={index} onClick={() =>changeDosage(index)}>
+                                    {dosage.Key}
+                                  </MenuItem>
+                                })
+                              }
                             </Menu>
                           </Grid>
                           <Grid item>
-                            <label>21 count  </label>
-                          </Grid>
-                          <Grid item>
+                            <label>{ready && mainData[brand].Value[form].Value[dosage].Value[quantity].Key + "Count"}</label>
                             <IconButton
-                              onClick={handleClick}
-                              aria-controls={open ? 'menu4' : undefined}
+                              onClick={(e) =>handleClick(e,4)}
+                              aria-controls={open && which == 4 ? 'menu4' : undefined}
                               aria-haspopup="true"
-                              aria-expanded={open ? 'true' : undefined}
+                              aria-expanded={open && which == 4 ? 'true' : undefined}
                             >
                               <ArrowDropDownCircle />
                             </IconButton>
                             <Menu
                               anchorEl={anchorEl}
                               id="menu4"
-                              open={open}
+                              open={open && which == 4}
                               onClose={handleClose}
                               onClick={handleClose}
                               PaperProps={{
@@ -384,16 +535,15 @@ export default function Medicine(props) {
                               transformOrigin={{ horizontal: 'right', vertical: 'top' }}
                               anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
                             > 
-                              <ListSubheader>Select Form4</ListSubheader>
-                              <MenuItem onClick={handleClose}>
-                                Capsule 
-                              </MenuItem>
-                              <MenuItem onClick={handleClose}>
-                                Settings
-                              </MenuItem>
-                              <MenuItem onClick={handleClose}>
-                                Logout
-                              </MenuItem>
+                              <ListSubheader>Select Quantity</ListSubheader>
+                              {
+                                ready &&
+                                mainData[brand].Value[form].Value[dosage].Value.map((quantity,index)=>{
+                                  return <MenuItem key={index} onClick={() =>changeQuantity(index)}>
+                                    {quantity.Key}
+                                  </MenuItem>
+                                })
+                              }
                             </Menu>
                           </Grid>
                       </Grid>
@@ -402,78 +552,38 @@ export default function Medicine(props) {
             </Grid>
           </Grid>
           <Grid item container direction={"column"} alignItems={"center"} justifyContent={"center"} className="mt-2">
-            <Grid item sx={{width:'100%'}} className="mt-2">
-              <Paper elevation={"3"} className="p-4">
-                <Grid container direction={"row"}>
-                  <Grid item container direciton={"row"} alignItems={"center"} justifyContent={"flex-start"}  md={6}>
-                    <Grid item>
-                      
+          {
+            pharmacyData.PharmacyPricings && pharmacyData.PharmacyPricings.map((pharmacy,index)=>{
+              return <Grid item sx={{width:'100%'}} className="mt-2">
+                <Paper elevation={3} className="p-4">
+                  <Grid container direction={"row"}>
+                    <Grid item container direciton={"row"} alignItems={"center"} justifyContent={"space-between"}  md={4}>
+                      <Grid item sx={{width:'120px'}}>
+                        <img src={pharmacy.Pharmacy && pharmacy.Pharmacy.LogoUrl} alt="No Image" />
+                      </Grid>
+                      <Grid item>
+                        {pharmacy.Pharmacy && parseFloat(pharmacy.Pharmacy.Distance).toFixed(2) + "miles"}
+                      </Grid>
                     </Grid>
-                    <Grid item>
-                      2.15miles away
-                    </Grid>
-                  </Grid>
-                  <Grid item container direciton={"row"} alignItems={"center"} justifyContent={"flex-end"}  md={6}>
-                    <Grid item>
-                      <h4 className="p-2 m-1">$7.81</h4>
-                    </Grid>
-                    <Grid item>
-                      <Button  variant="contained" className="py-3" color="success" onClick={() =>setModal({name:'amoxicillin', description:'21 capsule, 500mg for %5.63 at kronger Pharmacy'})}>Get Free Coupon</Button>
-                    </Grid>
-                  </Grid>
-                </Grid>
-              </Paper>
-            </Grid>
-            <Grid item sx={{width:'100%'}} className="mt-2">
-              <Paper elevation={"3"} className="p-4">
-                <Grid container direction={"row"}>
-                  <Grid item container direciton={"row"} alignItems={"center"} justifyContent={"flex-start"}  md={6}>
-                    <Grid item>
-                      
-                    </Grid>
-                    <Grid item>
-                      2.15miles away
+                    <Grid item container direciton={"row"} alignItems={"center"} justifyContent={"flex-end"}  md={8}>
+                      <Grid item>
+                        <h4 className="p-2 m-1">${pharmacy.Prices && pharmacy.Prices[0].Price}</h4>
+                      </Grid>
+                      <Grid item>
+                        <Button  variant="contained" className="py-3" color="success" onClick={() =>setModal({name:'amoxicillin', description:'21 capsule, 500mg for %5.63 at kronger Pharmacy'})}>Get Free Coupon</Button>
+                      </Grid>
                     </Grid>
                   </Grid>
-                  <Grid item container direciton={"row"} alignItems={"center"} justifyContent={"flex-end"}  md={6}>
-                    <Grid item>
-                      <h4 className="p-2 m-1">$7.81</h4>
-                    </Grid>
-                    <Grid item>
-                      <Button  variant="contained" className="py-3" color="success" onClick={() =>setModal({name:'jolon'})}>Get Free Coupon</Button>
-                    </Grid>
-                  </Grid>
-                </Grid>
-              </Paper>
-            </Grid>
-            <Grid item sx={{width:'100%'}} className="mt-2">
-              <Paper elevation={"3"} className="p-4">
-                <Grid container direction={"row"}>
-                  <Grid item container direciton={"row"} alignItems={"center"} justifyContent={"flex-start"}  md={6}>
-                    <Grid item>
-                      
-                    </Grid>
-                    <Grid item>
-                      2.15miles away
-                    </Grid>
-                  </Grid>
-                  <Grid item container direciton={"row"} alignItems={"center"} justifyContent={"flex-end"}  md={6}>
-                    <Grid item>
-                      <h4 className="p-2 m-1">$7.81</h4>
-                    </Grid>
-                    <Grid item>
-                      <Button  variant="contained" className="py-3" color="success" onClick={() =>setModal({name:'lisonpril'})}>Get Free Coupon</Button>
-                    </Grid>
-                  </Grid>
-                </Grid>
-              </Paper>
-            </Grid>
+                </Paper>
+              </Grid>
+            })
+          }
           </Grid>
         </Grid>
       </Grid>
       
       <Grid container direction={"row"} justifyContent={"center"} alignItems={"center"} className="py-5 px-1 section2_2">
-        <Grid container xs={12} sm={9} md={6}   direction={"column"} alignItems={"center"} justifyContent={"center"}>
+        <Grid item container xs={12} sm={9} md={6}   direction={"column"} alignItems={"center"} justifyContent={"center"}>
           <Grid item>
             <h3>SingleCare partners with major pharmacies</h3>
           </Grid>
@@ -514,109 +624,77 @@ export default function Medicine(props) {
       </Grid>
 
       <Grid container direction={"row"} justifyContent={"center"} alignItems={"center"} className="py-5 px-1 section2_3">
-        <Grid container xs={12} sm={9} md={6}  direction={"column"} justifyContent={"center"} alignItems={"center"} >
+        <Grid item container xs={12} sm={9} md={6}  direction={"column"} justifyContent={"center"} alignItems={"center"} >
           <Grid item md={4} className="mb-2">
             <Box>HOW TO GET THE MOST FROM YOUR AMOXICILLIN COUPON</Box>
           </Grid>
-          <Grid item md={6}  className="mb-2">
-            <Paper elevation={0} >
-              <Card>
-                <CardActionArea>
-                  <CardContent>
-                    <Typography gutterBottom variant="h5" component="div" color="primary" >
-                      What is the price of Amoxicillin without insurance?
-                    </Typography>
-                    <Typography>
-                    The average retail cost of Amoxicillin 125 mg chewable without insurance is about $9 for a supply of 14 tablets. The cost may vary depending on your daily dosage, your insurance coverage and the pharmacy where you shop.
-                    </Typography>
-                  </CardContent>
-                </CardActionArea>
-              </Card>
-            </Paper>
-          </Grid>
-          <Grid className="mb-2">
-            <Paper elevation={0} >
-              <Card>
-                <CardActionArea>
-                  <CardContent>
-                    <Typography gutterBottom variant="h5" component="div" color="primary" >
-                    Where can I use SingleCare’s Amoxicillin coupon?
-                    </Typography>
-                    <Typography>
-                      The SingleCare Amoxicillin coupon card is accepted at most U.S. pharmacies including Walmart, CVS pharmacy, Rite Aid and Walgreens for up to 80% discount on your Amoxicillin prescription. To check if your pharmacy accepts SingleCare coupons, enter the zip code and see if it appears in the search results. You can also bring your SingleCare discount card to your local pharmacy and with your permission the pharmacist will process your prescription using the BIN and PCN number on your card.
-                    </Typography>
-                  </CardContent>
-                </CardActionArea>
-              </Card>
-            </Paper>
-          </Grid>
-          <Grid className="mb-2">
-            <Paper elevation={0} >
-              <Card>
-                <CardActionArea>
-                  <CardContent>
-                    <Typography gutterBottom variant="h5" component="div" color="primary" >
-                    Is there a generic version of Amoxicillin?
-                    </Typography>
-                    <Typography>
-                    Amoxicillin is a generic drug. Similar brand-name drugs include Amoxil, Moxilin and Trimox. You can use our free pharmacy discount card to reduce the cost of your medication by up to 80% of the retail price.
-                    </Typography>
-                  </CardContent>
-                </CardActionArea>
-              </Card>
-            </Paper>
-          </Grid>
-          <Grid className="mb-2">
-            <Paper elevation={0} >
-              <Card>
-                <CardActionArea>
-                  <CardContent>
-                    <Typography gutterBottom variant="h5" component="div" color="primary" >
-                    How else can I save on Amoxicillin?
-                    </Typography>
-                    <Typography>
-                    There is no Amoxicillin manufacturer coupons and patients assistance programs currently available; however, you can save on your Amoxicillin prescription cost by using our free Amoxicillin coupon card. It is free and easy to use. Customers find they save the most on medications when they use our coupons.
-                    </Typography>
-                  </CardContent>
-                </CardActionArea>
-              </Card>
-            </Paper>
-          </Grid>
+          {
+            drugData.length !== 0 && drugData.FAQs && drugData.FAQs.map((faq,index) =>{
+              return(
+              <Grid item md={6}  className="mb-2" key={index}>
+                <Paper elevation={0} >
+                  <Card>
+                    <CardActionArea>
+                      <CardContent>
+                        <Typography gutterBottom variant="h5" component="div" color="primary" >
+                          {faq.Question.Text}
+                        </Typography>                        
+                        {
+                          faq.Question.Answers.map((answer,index)=>{
+                            return <Typography>{answer.Text}</Typography>
+                          })
+                        }
+                      </CardContent>
+                    </CardActionArea>
+                  </Card>
+                </Paper>
+              </Grid>
+              )
+            })
+          }
         </Grid>
       </Grid>
       
       <Grid container direction={"row"} justifyContent={"center"} alignItems={"center"} className="py-5 px-1 section2_4">
-        <Grid container xs={12} sm={9} md={6}  direction={"column"} justifyContent={"center"} alignItems={"flex-start"}>
+        <Grid item container xs={12} sm={9} md={6}  direction={"column"} justifyContent={"center"} alignItems={"flex-start"}>
           <Grid item>
-            <h3>Amoxicillin</h3>
+            <h3>{drugData && drugData.Drug && drugData.Drug.Name}</h3>
           </Grid>
           <Grid item>
-            <h3><i>a-mox-i-SIL-in</i></h3>
+            <h3><i>{drugData && drugData.Drug && drugData.Drug.FullName}</i></h3>
           </Grid>
           <Grid item container direction={"row"} columnSpacing={4} justifyContent={"flex-start"} alignItems={"flex-start"} className="mt-3">
-            <Grid item direction={"column"} md={"4"}>
+            <Grid item container direction={"column"} md={4}>
               <Grid item>
                 <p>CONSUMER FORMS</p>
               </Grid>
               <Grid item>
-                <span>Chewable Tablet, Long Acting Tablet, Tablet,<br />Capsule, Liquid</span>
+                <span>{drugData && drugData.MonoGraphData && drugData.MonoGraphData.ConsumerForms.join(",")}</span>
               </Grid>
             </Grid>
-            <Grid item direction={"column"} md={"4"}>
+            <Grid item container direction={"column"} md={4}>
               <Grid item>
                 <p>CONSUMER ROUTES</p>
               </Grid>
               <Grid item>
-                <span>By mouth</span>
+                <span>{drugData && drugData.MonoGraphData && drugData.MonoGraphData.ConsumerRoutes}</span>
               </Grid>
             </Grid>
-            <Grid item direction={"column"} md={"4"}>
+            <Grid item container direction={"column"} md={4}>
               <Grid item>
                 <p>THERAPEUTIC CLASSES</p>
               </Grid>
               <Grid item>
-                <span>Antibiotic</span>
+                <span>{drugData && drugData.MonoGraphData && drugData.MonoGraphData.TherapeuticClasses}</span>
               </Grid>
+            </Grid>
+          </Grid>
+          <Grid item container direciton={"row"} columnSpacing={4}  justifyContent={"flex-start"} alignItems={"center"} className="mt-3">
+            <Grid item md={4}>
+              <img src={drugData && drugData.ImageUrl} alt="No Image" />
+            </Grid>
+            <Grid item md={8}>
+              <p>{ drugData.Drug && drugData.Drug.Treatment}</p>
             </Grid>
           </Grid>
           <Grid item container direction={"column"}  justifyContent={"center"} alignItems={"center"}>
@@ -631,12 +709,12 @@ export default function Medicine(props) {
                   <Tab label="Storage" value="6" />
                 </TabList>
               </Box>
-              <TabPanel value="1">Item One</TabPanel>
-              <TabPanel value="2">Item Two</TabPanel>
-              <TabPanel value="3">Item Three</TabPanel>
-              <TabPanel value="4">Item Four</TabPanel>
-              <TabPanel value="5">Item Five</TabPanel>
-              <TabPanel value="6">Item Six</TabPanel>
+              <TabPanel value="1">{drugData.MonoGraphData && drugData.MonoGraphData.HowToUses}</TabPanel>
+              <TabPanel value="2">{drugData.MonoGraphData && drugData.MonoGraphData.Directions}</TabPanel>
+              <TabPanel value="3">{drugData.MonoGraphData && drugData.MonoGraphData.WarningCautions.join("\n")}</TabPanel>
+              <TabPanel value="4">{drugData.MonoGraphData && drugData.MonoGraphData.LessSeriousSideEffects.join("\n")}</TabPanel>
+              <TabPanel value="5">{drugData.MonoGraphData && drugData.MonoGraphData.DrugFoodAvoidings.join("\n")}</TabPanel>
+              <TabPanel value="6">{drugData.MonoGraphData && drugData.MonoGraphData.StorageDisposals.join("\n")}</TabPanel>
             </TabContext>
           </Grid>
           <Grid item container direction={"column"} justifyContent={"center"} alignItems={"center"} className="py-5 px-1 section2_4_5" >
@@ -683,14 +761,12 @@ export default function Medicine(props) {
       </Grid>
       
       <Grid container direction={"row"} justifyContent={"center"} alignItems={"center"} className="py-3 px-1 section2_5">
-        <Grid container xs={12} sm={9} md={6}  direction={"column"} justifyContent={"center"} alignItems={"flex-start"}>
+        <Grid item container xs={12} sm={9} md={6}  direction={"column"} justifyContent={"center"} alignItems={"flex-start"}>
           <Grid item>
-            <Typography>
-              <p><span>© 2023 SingleCare Administrators. All Rights Reserved.</span></p>
+              <p>© 2023 SingleCare Administrators. All Rights Reserved.</p>
               <p>* Prescription savings vary by prescription and by pharmacy, and may reach up to 80% off cash price.</p>
               <p>Pharmacy names, logos, brands, and other trademarks are the property of their respective owners.</p>
               <p>This is not insurance. This is a discount prescription drug card and it's free to our members. If assistance is needed, please call the help line at 844-234-3057.</p>
-            </Typography>
           </Grid>
         </Grid>
       </Grid>
@@ -754,6 +830,13 @@ export default function Medicine(props) {
           </MDBModalContent>
         </MDBModalDialog>
       </MDBModal>
+      
+      <Backdrop
+        sx={{ color: '#fff', zIndex: 2 }}
+        open={loading}
+      >
+        <CircularProgress color="inherit" />
+      </Backdrop>
     </>
   );
 }

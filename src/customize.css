@@ -16,6 +16,48 @@
     padding-top: 30px;
 }
 
+
+.section1_2 .green_pin{
+    background:url('asserts/img/green-pin.svg') no-repeat center;    color: #fff;
+    width: 68px;
+    height: 44px;
+    text-align: center;
+    font-size: 12px;
+    padding-top: 7px;
+    position: relative;
+    top: 120px;
+}
+
+.section1_2 .grey_pin{
+    background:url('asserts/img/dark-pin.svg')no-repeat center;    color: #fff;
+    width: 68px;
+    height: 44px;
+    text-align: center;
+    font-size: 12px;
+    padding-top: 7px;
+    position: relative;
+}
+
+.section1_2 .grey_pin0{
+    left: 120px;
+}
+
+.section1_2 .grey_pin1{
+    right:120px;
+}
+
+.section1_2 .grey_pin2{
+    left:250px;
+}
+
+.section1_2 .grey_pin3{
+    right:230px;
+}
+
+.section1_2 .grey_pin4{
+    right:50px;
+}
+
 .section1_3{
     color:black;
     
