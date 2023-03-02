@@ -245,6 +245,7 @@ export default function Medicine(props) {
   }
 
   const ready = mainData.length == 0 ? false : true;
+  console.log(mainData[brand].Value[form].Value[dosage].Value[quantity].Value,pharmacyData.PharmacyPricings);
 
   return (
     <>
@@ -264,7 +265,7 @@ export default function Medicine(props) {
       </MDBNavbar>
 
       <Grid container direction={"row"} justifyContent={"center"} alignItems={"center"} className="py-5 px-1 section2_1">
-        <Grid item container xs={12} sm={9} md={6}  direction={"column"} alignItems={"center"} justifyContent={"center"}>
+        <Grid item container md={6}  direction={"column"} alignItems={"center"} justifyContent={"center"}>
           <Grid item container spacing={2} direction={"row"} alignItems={"center"} justifyContent={"center"} className="mt-2">
               <Grid item md={4}>
                 <Paper
@@ -570,7 +571,13 @@ export default function Medicine(props) {
                         <h4 className="p-2 m-1">${pharmacy.Prices && pharmacy.Prices[0].Price}</h4>
                       </Grid>
                       <Grid item>
-                        <Button  variant="contained" className="py-3" color="success" onClick={() =>setModal({name:'amoxicillin', description:'21 capsule, 500mg for %5.63 at kronger Pharmacy'})}>Get Free Coupon</Button>
+                        <Button  variant="contained" className="py-3" color="success" onClick={() =>setModal({name:'amoxicillin', description:
+                            mainData[brand].Value[form].Value[dosage].Value[quantity].Value.Quantity + '\t'+
+                            mainData[brand].Value[form].Value[dosage].Value[quantity].Value.Form + ','+
+                            mainData[brand].Value[form].Value[dosage].Value[quantity].Value.Dosage + ' for $'+ 
+                            pharmacy.Prices[0].Price + ' at ' +
+                            pharmacy.Pharmacy.Name + 'pharmacy'
+                          })}>Get Free Coupon</Button>
                       </Grid>
                     </Grid>
                   </Grid>
@@ -780,10 +787,10 @@ export default function Medicine(props) {
                   <img src='../logo.png' width='100px'/>
                 </Grid>
                 <Grid item container direciton={"column"} alignItems={"center"} justifyContent={"center"}>
-                  <Grid item>
+                  <Grid item md={12}>
                     <MDBModalTitle>{modaldata?.name}</MDBModalTitle>
                   </Grid>
-                  <Grid item>
+                  <Grid item md={12}>
                     <span>{modaldata?.description}</span>
                   </Grid>
                 </Grid>
