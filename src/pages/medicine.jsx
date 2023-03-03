@@ -387,7 +387,7 @@ export default function Medicine(props) {
                               <ListSubheader>Select Brand</ListSubheader>
                               {
                                 ready &&
-                                mainData.map((brand,index)=>{
+                                mainData?.map((brand,index)=>{
                                   return <MenuItem key={index} onClick={() =>changeBrand(index)}>
                                     {brand.Key}
                                   </MenuItem>
@@ -436,8 +436,8 @@ export default function Medicine(props) {
                             > 
                               <ListSubheader>Select Form</ListSubheader>
                               {
-                                ready &&
-                                mainData[brand]?.Value.map((form,index)=>{
+                                ready && mainData &&
+                                mainData[brand]?.Value?.map((form,index)=>{
                                   return <MenuItem key={index} onClick={() =>changeForm(index)}>
                                     {form.Key}
                                   </MenuItem>
@@ -487,7 +487,7 @@ export default function Medicine(props) {
                               <ListSubheader>Select Dosage</ListSubheader>
                               {
                                 ready &&
-                                mainData[brand]?.Value[form]?.Value.map((dosage,index)=>{
+                                mainData[brand]?.Value[form]?.Value?.map((dosage,index)=>{
                                   return <MenuItem key={index} onClick={() =>changeDosage(index)}>
                                     {dosage.Key}
                                   </MenuItem>
@@ -537,7 +537,7 @@ export default function Medicine(props) {
                               <ListSubheader>Select Quantity</ListSubheader>
                               {
                                 ready &&
-                                mainData[brand]?.Value[form]?.Value[dosage]?.Value.map((quantity,index)=>{
+                                mainData[brand]?.Value[form]?.Value[dosage]?.Value?.map((quantity,index)=>{
                                   return <MenuItem key={index} onClick={() =>changeQuantity(index)}>
                                     {quantity.Key}
                                   </MenuItem>
@@ -553,7 +553,7 @@ export default function Medicine(props) {
           <Grid item container direction={"column"} alignItems={"center"} justifyContent={"center"} className="mt-2">
           {
             pharmacyData?.PharmacyPricings?.map((pharmacy,index)=>{
-              return <Grid item sx={{width:'100%'}} className="mt-2">
+              return <Grid item sx={{width:'100%'}} className="mt-2" key={index}>
                 <Paper elevation={3} className="p-4">
                   <Grid container direction={"row"}>
                     <Grid item container direciton={"row"} alignItems={"center"} justifyContent={"space-between"}  md={4}>
@@ -634,7 +634,7 @@ export default function Medicine(props) {
             <Box>HOW TO GET THE MOST FROM YOUR AMOXICILLIN COUPON</Box>
           </Grid>
           {
-            drugData?.FAQs.map((faq,index) =>{
+            drugData?.FAQs?.map((faq,index) =>{
               return(
               <Grid item md={6}  className="mb-2" key={index}>
                 <Paper elevation={0} >
@@ -642,10 +642,10 @@ export default function Medicine(props) {
                     <CardActionArea>
                       <CardContent>
                         <Typography gutterBottom variant="h5" component="div" color="primary" >
-                          {faq.Question.Text}
+                          {faq?.Question?.Text}
                         </Typography>                        
                         {
-                          faq.Question.Answers.map((answer,index)=>{
+                          faq?.Question?.Answers?.map((answer,index)=>{
                             return <Typography>{answer.Text}</Typography>
                           })
                         }
