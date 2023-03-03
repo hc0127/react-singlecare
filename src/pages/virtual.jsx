@@ -17,6 +17,7 @@ import {
   Autocomplete,
   Backdrop,
   CircularProgress,
+  Zoom
 } from '@mui/material';
 import {
   Search
@@ -32,6 +33,7 @@ export default function Virtual(props) {
   const [medicineData, setMedicineData] = React.useState([]);
   const [loading, setLoading] = React.useState(false);
   const [selMidicine, setSelMedicine] = React.useState(0);
+  const [effect, setEffect] = React.useState(0);
 
   const navigate = useNavigate();
 
@@ -63,7 +65,9 @@ export default function Virtual(props) {
     navigate("/virtualme/"+val.seo_name);
   }
   const changePricing = (e) =>{
+    setEffect(false);
     setSelMedicine(e);
+    setEffect(true);
   }
 
   const Medicine = (props) =>{
@@ -77,7 +81,7 @@ export default function Virtual(props) {
   }
 
   return (
-    <>
+    <div>
       <MDBNavbar className="navbar navbar-expand-lg navbar-light bg-light">
         <div className="container-fluid">
           <div className="collapse navbar-collapse">
@@ -156,10 +160,14 @@ export default function Virtual(props) {
             </Carousel>
           </Grid>
           <Grid item >
-            <div className='green_pin text-center'>{pricings.length !== 0 && pricings[selMidicine]?.price_green_pin}</div>
+            <Zoom in={true} style={{ transitionDelay: '0ms'}}>
+              <div className='green_pin text-center'>{pricings.length !== 0 && pricings[selMidicine]?.price_green_pin}</div>
+            </Zoom>
             {
              pricings.length !== 0 &&  pricings[selMidicine].prices_grey_pin?.map((grey_pin,index) =>{
-                return <div key={index} className={'grey_pin grey_pin'+index}>{grey_pin}</div>
+                return <Zoom in={true} style={{ transitionDelay: '500ms'}}>
+                  <div key={index} className={'grey_pin grey_pin'+index}>{grey_pin}</div>
+                </Zoom>
               })
             }
           </Grid>
@@ -174,7 +182,9 @@ export default function Virtual(props) {
           <Grid item container direction={"row"} justifyContent={"space-around"} alignItems={"center"}>
             <Grid item container md={3} direction={"column"} justifyContent={"center"} alignItems={"center"}>
               <Grid item>
-                <div className='step1'></div>
+                <Zoom in={true} style={{ transitionDelay: '1000ms'}}>
+                  <div className='step1'></div>
+                  </Zoom>
               </Grid>
               <Grid item>
                 <p>STEP ONE</p>
@@ -185,7 +195,9 @@ export default function Virtual(props) {
             </Grid>
             <Grid item container md={3} direction={"column"} justifyContent={"center"} alignItems={"center"}>
               <Grid item>
-                <div className='step2'></div>
+                <Zoom in={true} style={{ transitionDelay: '1000ms'}}>
+                  <div className='step2'></div>
+                </Zoom>
               </Grid>
               <Grid item>
                 <p>STEP TWO</p>
@@ -196,10 +208,12 @@ export default function Virtual(props) {
             </Grid>
             <Grid item container md={3} direction={"column"} justifyContent={"center"} alignItems={"center"}>
               <Grid item>
-                <div className='step3'></div>
+                <Zoom in={true} style={{ transitionDelay: '1000ms'}}>
+                  <div className='step3'></div>
+                </Zoom>
               </Grid>
               <Grid item>
-                <p>STEP ThREE</p>
+                <p>STEP THREE</p>
               </Grid>
               <Grid item>
                 <span>Save at the pharmacy</span>
@@ -373,6 +387,6 @@ export default function Virtual(props) {
       >
         <CircularProgress color="inherit" />
       </Backdrop>
-    </>
+    </div>
   );
 }

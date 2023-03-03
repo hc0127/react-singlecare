@@ -7,7 +7,6 @@ import {
   MDBModalDialog,
   MDBModalHeader,
   MDBModalBody,
-  MDBModalFooter,
   MDBModalContent,
   MDBModalTitle,
 } from "mdb-react-ui-kit";
@@ -83,11 +82,11 @@ export default function Medicine(props) {
     .then(function(res){
       setMainData(res.data);
       axios
-      .get('v1/drug/'+res.data[0].Value[0].Value[0].Value[0].Value.NDC)
+      .get('v1/drug/'+res.data[0]?.Value[0]?.Value[0]?.Value[0]?.Value.NDC)
       .then(function(drugRes){
         setDrugs(drugRes.data);
         axios
-        .get('v1/price/'+res.data[0].Value[0].Value[0].Value[0].Value.NDC+'/'+res.data[0].Value[0].Value[0].Value[0].Key+'/'+zipdata.zip_code)
+        .get('v1/price/'+res.data[0]?.Value[0]?.Value[0]?.Value[0]?.Value.NDC+'/'+res.data[0]?.Value[0]?.Value[0]?.Value[0].Key+'/'+zipdata.zip_code)
         .then(function(PharRes){
           setPharmacies(PharRes.data);
         });
@@ -113,7 +112,7 @@ export default function Medicine(props) {
       setMedicines(popularMedicineData);
     }else{
       axios
-      .get('v1/search?q='+e.target.value)
+      .get('v1/search?q='+e.target?.value)
       .then(function(res){
         setMedicines(res.data);
       });
@@ -144,7 +143,7 @@ export default function Medicine(props) {
     setDosage(0);
     setQuantity(0);
     axios
-    .get('v1/price/'+mainData[brand].Value[0].Value[0].Value[0].Value.NDC+'/'+mainData[brand].Value[0].Value[0].Value[0].Key+'/'+zipdata.zip_code)
+    .get('v1/price/'+mainData[brand]?.Value[0]?.Value[0]?.Value[0]?.Value?.NDC+'/'+mainData[brand]?.Value[0]?.Value[0]?.Value[0].Key+'/'+zipdata.zip_code)
     .then(function(PharRes){
       setPharmacies(PharRes.data);
       setLoading(false);
@@ -157,7 +156,7 @@ export default function Medicine(props) {
     setDosage(0);
     setQuantity(0);
     axios
-    .get('v1/price/'+mainData[brand].Value[val].Value[0].Value[0].Value.NDC+'/'+mainData[brand].Value[val].Value[0].Value[0].Key+'/'+zipdata.zip_code)
+    .get('v1/price/'+mainData[brand]?.Value[val]?.Value[0]?.Value[0]?.Value.NDC+'/'+mainData[brand]?.Value[val]?.Value[0]?.Value[0].Key+'/'+zipdata.zip_code)
     .then(function(PharRes){
       setPharmacies(PharRes.data);
       setLoading(false);
@@ -169,7 +168,7 @@ export default function Medicine(props) {
     setDosage(val);
     setQuantity(0);
     axios
-    .get('v1/price/'+mainData[brand].Value[form].Value[val].Value[0].Value.NDC+'/'+mainData[brand].Value[form].Value[val].Value[0].Key+'/'+zipdata.zip_code)
+    .get('v1/price/'+mainData[brand]?.Value[form]?.Value[val]?.Value[0]?.Value.NDC+'/'+mainData[brand]?.Value[form]?.Value[val]?.Value[0].Key+'/'+zipdata.zip_code)
     .then(function(PharRes){
       setPharmacies(PharRes.data);
       setLoading(false);
@@ -180,7 +179,7 @@ export default function Medicine(props) {
     handleClose();
     setQuantity(val);
     axios
-    .get('v1/price/'+mainData[brand].Value[form].Value[dosage].Value[val].Value.NDC+'/'+mainData[brand].Value[form].Value[dosage].Value[val].Key+'/'+zipdata.zip_code)
+    .get('v1/price/'+mainData[brand]?.Value[form]?.Value[dosage]?.Value[val]?.Value.NDC+'/'+mainData[brand]?.Value[form]?.Value[dosage]?.Value[val].Key+'/'+zipdata.zip_code)
     .then(function(PharRes){
       setPharmacies(PharRes.data);
       setLoading(false);
@@ -196,10 +195,10 @@ export default function Medicine(props) {
   }
 
   const changeZipcode = (e) =>{
-    setTmpZipcode(e.target.value);
-    if(e.target.value.length == 5){
+    setTmpZipcode(e.target?.value);
+    if(e.target?.value.length == 5){
       setLoading(true);
-      axios.get('v1/zip_code/'+e.target.value).then(function(res){
+      axios.get('v1/zip_code/'+e.target?.value).then(function(res){
         setFocusZipcode(false);
         setZipdata(res.data);
         formatData();
@@ -229,11 +228,11 @@ export default function Medicine(props) {
       .then(function(res){
         setMainData(res.data);
         axios
-        .get('v1/drug/'+res.data[0].Value[0].Value[0].Value[0].Value.NDC)
+        .get('v1/drug/'+res.data[0]?.Value[0]?.Value[0]?.Value[0]?.Value.NDC)
         .then(function(drugRes){
           setDrugs(drugRes.data);
           axios
-          .get('v1/price/'+res.data[0].Value[0].Value[0].Value[0].Value.NDC+'/'+res.data[0].Value[0].Value[0].Value[0].Key+'/'+zipdata.zip_code)
+          .get('v1/price/'+res.data[0]?.Value[0]?.Value[0]?.Value[0]?.Value.NDC+'/'+res.data[0]?.Value[0]?.Value[0]?.Value[0].Key+'/'+zipdata.zip_code)
           .then(function(PharRes){
             setPharmacies(PharRes.data);
             setLoading(false);
@@ -245,7 +244,6 @@ export default function Medicine(props) {
   }
 
   const ready = mainData.length == 0 ? false : true;
-  console.log(mainData[brand].Value[form].Value[dosage].Value[quantity].Value,pharmacyData.PharmacyPricings);
 
   return (
     <>
@@ -343,8 +341,8 @@ export default function Medicine(props) {
             <Grid item container md={12} alignItems={"center"} justifyContent={"center"}>
                 <Grid item>
                     <Paper className='p-2'>
-                      <h2>{ready && mainData[brand].Value[form].Value[dosage].Value[quantity].Value.MetaTitle}</h2>
-                      <p>{ready && mainData[brand].Value[form].Value[dosage].Value[quantity].Value.Description}</p>
+                      <h2>{ready && mainData[brand]?.Value[form]?.Value[dosage]?.Value[quantity]?.Value.MetaTitle}</h2>
+                      <p>{ready && mainData[brand]?.Value[form]?.Value[dosage]?.Value[quantity]?.Value.Description}</p>
                       <Divider />
                       <Grid container direction={"row"} columnSpacing={2} className="p-2" alignItems={"center"} justifyContent={"flex-start"}>
                           <Grid item>
@@ -398,7 +396,7 @@ export default function Medicine(props) {
                             </Menu>
                           </Grid>
                           <Grid item>
-                            <label>{ready && mainData[brand].Value[form].Key}</label>
+                            <label>{ready && mainData[brand]?.Value[form].Key}</label>
                             <IconButton
                               onClick={(e) =>handleClick(e,2)}
                               aria-controls={open && which == 2 ? 'menu2' : undefined}
@@ -439,7 +437,7 @@ export default function Medicine(props) {
                               <ListSubheader>Select Form</ListSubheader>
                               {
                                 ready &&
-                                mainData[brand].Value.map((form,index)=>{
+                                mainData[brand]?.Value.map((form,index)=>{
                                   return <MenuItem key={index} onClick={() =>changeForm(index)}>
                                     {form.Key}
                                   </MenuItem>
@@ -448,7 +446,7 @@ export default function Medicine(props) {
                             </Menu>
                           </Grid>
                           <Grid item>
-                            <label>{ready && mainData[brand].Value[form].Value[dosage].Key}</label>
+                            <label>{ready && mainData[brand]?.Value[form]?.Value[dosage].Key}</label>
                             <IconButton
                               onClick={(e) =>handleClick(e,3)}
                               aria-controls={open && which == 3 ? 'menu3' : undefined}
@@ -489,7 +487,7 @@ export default function Medicine(props) {
                               <ListSubheader>Select Dosage</ListSubheader>
                               {
                                 ready &&
-                                mainData[brand].Value[form].Value.map((dosage,index)=>{
+                                mainData[brand]?.Value[form]?.Value.map((dosage,index)=>{
                                   return <MenuItem key={index} onClick={() =>changeDosage(index)}>
                                     {dosage.Key}
                                   </MenuItem>
@@ -498,7 +496,7 @@ export default function Medicine(props) {
                             </Menu>
                           </Grid>
                           <Grid item>
-                            <label>{ready && mainData[brand].Value[form].Value[dosage].Value[quantity].Key + "Count"}</label>
+                            <label>{ready && mainData[brand]?.Value[form]?.Value[dosage]?.Value[quantity].Key + "Count"}</label>
                             <IconButton
                               onClick={(e) =>handleClick(e,4)}
                               aria-controls={open && which == 4 ? 'menu4' : undefined}
@@ -539,7 +537,7 @@ export default function Medicine(props) {
                               <ListSubheader>Select Quantity</ListSubheader>
                               {
                                 ready &&
-                                mainData[brand].Value[form].Value[dosage].Value.map((quantity,index)=>{
+                                mainData[brand]?.Value[form]?.Value[dosage]?.Value.map((quantity,index)=>{
                                   return <MenuItem key={index} onClick={() =>changeQuantity(index)}>
                                     {quantity.Key}
                                   </MenuItem>
@@ -554,7 +552,7 @@ export default function Medicine(props) {
           </Grid>
           <Grid item container direction={"column"} alignItems={"center"} justifyContent={"center"} className="mt-2">
           {
-            pharmacyData.PharmacyPricings && pharmacyData.PharmacyPricings.map((pharmacy,index)=>{
+            pharmacyData?.PharmacyPricings?.map((pharmacy,index)=>{
               return <Grid item sx={{width:'100%'}} className="mt-2">
                 <Paper elevation={3} className="p-4">
                   <Grid container direction={"row"}>
@@ -572,9 +570,9 @@ export default function Medicine(props) {
                       </Grid>
                       <Grid item>
                         <Button  variant="contained" className="py-3" color="success" onClick={() =>setModal({name:'amoxicillin', description:
-                            mainData[brand].Value[form].Value[dosage].Value[quantity].Value.Quantity + '\t'+
-                            mainData[brand].Value[form].Value[dosage].Value[quantity].Value.Form + ','+
-                            mainData[brand].Value[form].Value[dosage].Value[quantity].Value.Dosage + ' for $'+ 
+                            mainData[brand]?.Value[form]?.Value[dosage]?.Value[quantity]?.Value.Quantity + '\t'+
+                            mainData[brand]?.Value[form]?.Value[dosage]?.Value[quantity]?.Value.Form + ','+
+                            mainData[brand]?.Value[form]?.Value[dosage]?.Value[quantity]?.Value.Dosage + ' for $'+ 
                             pharmacy.Prices[0].Price + ' at ' +
                             pharmacy.Pharmacy.Name + 'pharmacy'
                           })}>Get Free Coupon</Button>
@@ -636,7 +634,7 @@ export default function Medicine(props) {
             <Box>HOW TO GET THE MOST FROM YOUR AMOXICILLIN COUPON</Box>
           </Grid>
           {
-            drugData.length !== 0 && drugData.FAQs && drugData.FAQs.map((faq,index) =>{
+            drugData?.FAQs.map((faq,index) =>{
               return(
               <Grid item md={6}  className="mb-2" key={index}>
                 <Paper elevation={0} >
@@ -665,10 +663,10 @@ export default function Medicine(props) {
       <Grid container direction={"row"} justifyContent={"center"} alignItems={"center"} className="py-5 px-1 section2_4">
         <Grid item container xs={12} sm={9} md={6}  direction={"column"} justifyContent={"center"} alignItems={"flex-start"}>
           <Grid item>
-            <h3>{drugData && drugData.Drug && drugData.Drug.Name}</h3>
+            <h3>{drugData?.Drug?.Name}</h3>
           </Grid>
           <Grid item>
-            <h3><i>{drugData && drugData.Drug && drugData.Drug.FullName}</i></h3>
+            <h3><i>{drugData?.Drug?.FullName}</i></h3>
           </Grid>
           <Grid item container direction={"row"} columnSpacing={4} justifyContent={"flex-start"} alignItems={"flex-start"} className="mt-3">
             <Grid item container direction={"column"} md={4}>
@@ -676,7 +674,7 @@ export default function Medicine(props) {
                 <p>CONSUMER FORMS</p>
               </Grid>
               <Grid item>
-                <span>{drugData && drugData.MonoGraphData && drugData.MonoGraphData.ConsumerForms.join(",")}</span>
+                <span>{drugData?.MonoGraphData?.ConsumerForms.join(",")}</span>
               </Grid>
             </Grid>
             <Grid item container direction={"column"} md={4}>
@@ -684,7 +682,7 @@ export default function Medicine(props) {
                 <p>CONSUMER ROUTES</p>
               </Grid>
               <Grid item>
-                <span>{drugData && drugData.MonoGraphData && drugData.MonoGraphData.ConsumerRoutes}</span>
+                <span>{drugData?.MonoGraphData?.ConsumerRoutes}</span>
               </Grid>
             </Grid>
             <Grid item container direction={"column"} md={4}>
@@ -692,16 +690,16 @@ export default function Medicine(props) {
                 <p>THERAPEUTIC CLASSES</p>
               </Grid>
               <Grid item>
-                <span>{drugData && drugData.MonoGraphData && drugData.MonoGraphData.TherapeuticClasses}</span>
+                <span>{drugData?.MonoGraphData?.TherapeuticClasses}</span>
               </Grid>
             </Grid>
           </Grid>
           <Grid item container direciton={"row"} columnSpacing={4}  justifyContent={"flex-start"} alignItems={"center"} className="mt-3">
             <Grid item md={4}>
-              <img src={drugData && drugData.ImageUrl} alt="No Image" />
+              <img src={drugData?.ImageUrl} alt="No Image" />
             </Grid>
             <Grid item md={8}>
-              <p>{ drugData.Drug && drugData.Drug.Treatment}</p>
+              <p>{ drugData?.Drug?.Treatment}</p>
             </Grid>
           </Grid>
           <Grid item container direction={"column"}  justifyContent={"center"} alignItems={"center"}>
@@ -716,12 +714,12 @@ export default function Medicine(props) {
                   <Tab label="Storage" value="6" />
                 </TabList>
               </Box>
-              <TabPanel value="1">{drugData.MonoGraphData && drugData.MonoGraphData.HowToUses}</TabPanel>
-              <TabPanel value="2">{drugData.MonoGraphData && drugData.MonoGraphData.Directions}</TabPanel>
-              <TabPanel value="3">{drugData.MonoGraphData && drugData.MonoGraphData.WarningCautions.join("\n")}</TabPanel>
-              <TabPanel value="4">{drugData.MonoGraphData && drugData.MonoGraphData.LessSeriousSideEffects.join("\n")}</TabPanel>
-              <TabPanel value="5">{drugData.MonoGraphData && drugData.MonoGraphData.DrugFoodAvoidings.join("\n")}</TabPanel>
-              <TabPanel value="6">{drugData.MonoGraphData && drugData.MonoGraphData.StorageDisposals.join("\n")}</TabPanel>
+              <TabPanel value="1">{drugData?.MonoGraphData?.HowToUses}</TabPanel>
+              <TabPanel value="2">{drugData?.MonoGraphData?.Directions}</TabPanel>
+              <TabPanel value="3">{drugData?.MonoGraphData?.WarningCautions.join("\n")}</TabPanel>
+              <TabPanel value="4">{drugData?.MonoGraphData?.LessSeriousSideEffects.join("\n")}</TabPanel>
+              <TabPanel value="5">{drugData?.MonoGraphData?.DrugFoodAvoidings.join("\n")}</TabPanel>
+              <TabPanel value="6">{drugData?.MonoGraphData?.StorageDisposals.join("\n")}</TabPanel>
             </TabContext>
           </Grid>
           <Grid item container direction={"column"} justifyContent={"center"} alignItems={"center"} className="py-5 px-1 section2_4_5" >
