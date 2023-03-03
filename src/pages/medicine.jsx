@@ -244,7 +244,7 @@ export default function Medicine(props) {
   }
 
   const ready = mainData.length == 0 ? false : true;
-
+  console.log(drugData?.MonoGraphData);
   return (
     <>
       <MDBNavbar className="navbar navbar-expand-lg navbar-light bg-light">
@@ -714,12 +714,12 @@ export default function Medicine(props) {
                   <Tab label="Storage" value="6" />
                 </TabList>
               </Box>
-              <TabPanel value="1">{drugData?.MonoGraphData?.HowToUses}</TabPanel>
-              <TabPanel value="2">{drugData?.MonoGraphData?.Directions}</TabPanel>
-              <TabPanel value="3">{drugData?.MonoGraphData?.WarningCautions.join("\n")}</TabPanel>
-              <TabPanel value="4">{drugData?.MonoGraphData?.LessSeriousSideEffects.join("\n")}</TabPanel>
-              <TabPanel value="5">{drugData?.MonoGraphData?.DrugFoodAvoidings.join("\n")}</TabPanel>
-              <TabPanel value="6">{drugData?.MonoGraphData?.StorageDisposals.join("\n")}</TabPanel>
+              <TabPanel value="1">{drugData?.MonoGraphData?.HowToUses?.map((content,index)=>{return <Typography key={index}>{content}</Typography>})}</TabPanel>
+              <TabPanel value="2">{drugData?.MonoGraphData?.Directions?.map((content,index)=>{return <Typography key={index}>{content}</Typography>})}</TabPanel>
+              <TabPanel value="3">{drugData?.MonoGraphData?.WarningCautions?.map((content,index)=>{return <Typography key={index}>{content}</Typography>})}</TabPanel>
+              <TabPanel value="4">{drugData?.MonoGraphData?.LessSeriousSideEffects?.map((content,index)=>{return <Typography key={index}>{content}</Typography>})}</TabPanel>
+              <TabPanel value="5">{drugData?.MonoGraphData?.DrugFoodAvoidings.map((content,index)=>{return <Typography key={index}>{content}</Typography>})}</TabPanel>
+              <TabPanel value="6">{drugData?.MonoGraphData?.StorageDisposals.map((content,index)=>{return <Typography key={index}>{content}</Typography>})}</TabPanel>
             </TabContext>
           </Grid>
           <Grid item container direction={"column"} justifyContent={"center"} alignItems={"center"} className="py-5 px-1 section2_4_5" >
