@@ -639,7 +639,7 @@ export default function Medicine(props) {
                   <Card>
                     <CardActionArea>
                       <CardContent>
-                        <Typography gutterBottom variant="h5" component="div" color="primary" className='question_header'>
+                        <Typography gutterBottom variant="h5" component="div" className='secondary question_header'>
                           {faq?.Question?.Text}
                         </Typography>                        
                         {

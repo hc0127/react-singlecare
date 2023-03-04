@@ -257,7 +257,7 @@ export default function Virtual(props) {
               <Card>
                 <CardActionArea>
                   <CardContent>
-                    <Typography gutterBottom variant="h5" component="div" color="primary"  className='secondary question_header'>
+                    <Typography gutterBottom variant="h5" component="div" className='secondary question_header'>
                       Why did I receive a prescription savings card?
                     </Typography>
                     <Typography>
@@ -273,7 +273,7 @@ export default function Virtual(props) {
               <Card>
                 <CardActionArea>
                   <CardContent>
-                    <Typography gutterBottom variant="h5" component="div" color="primary"  className='secondary question_header'>
+                    <Typography gutterBottom variant="h5" component="div" className='secondary question_header'>
                       Are over-the-counter medications covered?
                     </Typography>
                     <Typography>
