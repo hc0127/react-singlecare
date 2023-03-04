@@ -141,6 +141,10 @@
     background: #565a5c;
 }
 
+.page1 .section1_5 *{
+    color:white;
+}
+
 .section1_5 .social{
     background-image: url('asserts/img/sc-footer-sprite@2x.png');
     background-repeat: no-repeat;
