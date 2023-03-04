@@ -41,7 +41,6 @@ import {
   LocationOn,
   ArrowDropDownCircle
 } from '@mui/icons-material';
-import styled from 'styled-components'
 
 import axios from '../config/server.config';
 
@@ -588,8 +587,8 @@ export default function Medicine(props) {
       
       <Grid container direction={"row"} justifyContent={"center"} alignItems={"center"} className="py-5 px-1 section2_2">
         <Grid item container xs={12} sm={9} md={6}   direction={"column"} alignItems={"center"} justifyContent={"center"}>
-          <Grid item>
-            <h3>SingleCare partners with major pharmacies</h3>
+          <Grid item className='p-5'>
+            <h3 className='white'>SingleCare partners with major pharmacies</h3>
           </Grid>
           <Grid item container direction={"row"} alignItems={"center"} justifyContent={"center"}>
             <Grid item>
@@ -630,7 +629,7 @@ export default function Medicine(props) {
       <Grid container direction={"row"} justifyContent={"center"} alignItems={"center"} className="py-5 px-1 section2_3">
         <Grid item container xs={12} sm={9} md={6}  direction={"column"} justifyContent={"center"} alignItems={"center"} >
           <Grid item md={4} className="mb-2">
-            <Box>HOW TO GET THE MOST FROM YOUR AMOXICILLIN COUPON</Box>
+            <Box><span>HOW TO GET THE MOST FROM YOUR AMOXICILLIN COUPON</span></Box>
           </Grid>
           {
             drugData?.FAQs?.map((faq,index) =>{
@@ -640,7 +639,7 @@ export default function Medicine(props) {
                   <Card>
                     <CardActionArea>
                       <CardContent>
-                        <Typography gutterBottom variant="h5" component="div" color="primary" >
+                        <Typography gutterBottom variant="h5" component="div" color="primary" className='question_header'>
                           {faq?.Question?.Text}
                         </Typography>                        
                         {
@@ -670,7 +669,7 @@ export default function Medicine(props) {
           <Grid item container direction={"row"} columnSpacing={4} justifyContent={"flex-start"} alignItems={"flex-start"} className="mt-3">
             <Grid item container direction={"column"} md={4}>
               <Grid item>
-                <p>CONSUMER FORMS</p>
+                <strong>CONSUMER FORMS</strong>
               </Grid>
               <Grid item>
                 <span>{drugData?.MonoGraphData?.ConsumerForms.join(",")}</span>
@@ -678,7 +677,7 @@ export default function Medicine(props) {
             </Grid>
             <Grid item container direction={"column"} md={4}>
               <Grid item>
-                <p>CONSUMER ROUTES</p>
+                <strong>CONSUMER ROUTES</strong>
               </Grid>
               <Grid item>
                 <span>{drugData?.MonoGraphData?.ConsumerRoutes}</span>
@@ -686,7 +685,7 @@ export default function Medicine(props) {
             </Grid>
             <Grid item container direction={"column"} md={4}>
               <Grid item>
-                <p>THERAPEUTIC CLASSES</p>
+                <strong>THERAPEUTIC CLASSES</strong>
               </Grid>
               <Grid item>
                 <span>{drugData?.MonoGraphData?.TherapeuticClasses}</span>
@@ -731,7 +730,7 @@ export default function Medicine(props) {
                   <div className='step1'></div>
                 </Grid>
                 <Grid item>
-                  <p>STEP ONE</p>
+                  <strong>STEP ONE</strong>
                 </Grid>
                 <Grid item>
                   <span>Find your prescription</span>
@@ -742,7 +741,7 @@ export default function Medicine(props) {
                   <div className='step2'></div>
                 </Grid>
                 <Grid item>
-                  <p>STEP TWO</p>
+                  <strong>STEP TWO</strong>
                 </Grid>
                 <Grid item>
                   <span>Compare pricing</span>
@@ -753,7 +752,7 @@ export default function Medicine(props) {
                   <div className='step3'></div>
                 </Grid>
                 <Grid item>
-                  <p>STEP THREE</p>
+                  <strong>STEP THREE</strong>
                 </Grid>
                 <Grid item>
                   <span>Save at the pharmacy</span>

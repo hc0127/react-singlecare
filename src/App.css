@@ -9,6 +9,11 @@ body{
   text-align: center;
 }
 
+h1{
+  font-weight: 300;
+  line-height: 1.2rem;
+}
+
 .App-logo {
   height: 40vmin;
   pointer-events: none;

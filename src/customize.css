@@ -1,17 +1,36 @@
+.page1 *{
+    color: #565a5c;
+    font-family: 'Open Sans',sans-serif;
+}
+.page2 *{
+    color: #565a5c;
+    font-family: 'Open Sans',sans-serif;
+}
+
+
+.secondary{
+    color:#00baf2;
+}
+
+.white{
+    color:white !important;
+}
+
 .section1_1{
     background:#79d2fe url('asserts/img/bg-masthead.jpg') bottom center no-repeat ;
     background-position: bottom -130px center;
     background-size: cover;
-    color:white;
+}
+
+.section1_1 h1{
+    font-size: 36px;
+    text-shadow: 0 0 15px rgb(0 0 0 / 20%);
 }
 
 .section1_1 .searchBox input:focus{
     border: none;
 }
 
-.section1_1 h1{
-    text-shadow: 0 0 15px rgb(0 0 0 / 20%);
-}
 
 .section1_2{
     background: url('asserts/img/bg-map-sample.png') center center no-repeat;
@@ -19,6 +38,21 @@
     padding-top: 30px;
 }
 
+.section1_2 a{
+    font-size: 22px;
+    font-weight: 300;
+    line-height: 120%;
+    text-decoration: none;
+}
+
+.section1_2 .carousel_header{
+    font-size: 12px;
+    font-weight: bold;
+    line-height: 120%;
+    text-transform: uppercase;
+    margin-bottom: 5px;
+    margin: 0 0 5px;
+}
 
 .section1_2 .green_pin{
     background:url('asserts/img/green-pin.svg') no-repeat center;    color: #fff;
@@ -97,9 +131,14 @@
     background: #f9f9f9;
 }
 
+.section1_4 .question_header{
+    font-size: 22px;
+    font-weight: 300;
+    line-height: 120%;
+}
+
 .section1_5{
     background: #565a5c;
-    color:white;
 }
 
 .section1_5 .social{
@@ -165,8 +204,10 @@
     height: 41px;
     width: 135px;
 }
-.page2 *{
-    color: #565a5c;
+
+.page1 .section1_5 span,.page1 .section1_5 p,.page1 .section1_5 h5{
+    line-height: 1.6;
+    font-size: 13px;
 }
 
 .section2_1 h1{
@@ -189,16 +230,14 @@
 
 .section2_1 .get_coupon{
     background-color: #5ac787;
-    color: #fff;
     text-transform: none;
 }
 
 .section2_1 .get_coupon:hover{
     background-color: #87d3a7;
-    color: #fff;
 }
 
-.section2_2{
+.page2 div.section2_2{
     color: white;
     background: #2b91c5;
 }
@@ -254,6 +293,20 @@
     background-color: #f3f3f3;
 }
 
+.section2_3 .question_header{
+    font-size: 22px;
+    font-weight: 300;
+    line-height: 120%;
+}
+
+.section2_4 strong{
+    display: block;
+    font-size: 12px;
+    line-height: 120%;
+    margin-bottom: 2px;
+    text-transform: uppercase;
+}
+
 .section2_4_5 .step1{
     background: url('asserts/img/sprite-steps-coupon.png') no-repeat;
     background-size: 146px 480px;
@@ -283,7 +336,15 @@
 
 .section2_5{
     background: #565a5c;
+}
+
+.page2 .section2_5 *{
     color:white;
+}
+
+.page2 .section2_5 span,.page2 .section2_5 p,.page2 .section2_5 h5{
+    line-height: 1.6;
+    font-size: 13px;
 }
 
 .section2_modal .card_image{
@@ -333,9 +394,4 @@
     top: 0%;
     transform: rotate(0deg);
     width: 200px;
-}
-
-h1,h2,h3 {
-    line-height: 120% !important;
-    font-weight: 300 !important;
 }

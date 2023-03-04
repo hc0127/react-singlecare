@@ -25,7 +25,6 @@ import {
 import Carousel from 'react-material-ui-carousel'
 
 import axios from '../config/server.config';
-import '../customize.css';
 
 export default function Virtual(props) {
   const [popularMedicineData, setPopularMedicineData] = React.useState([]);
@@ -73,15 +72,23 @@ export default function Virtual(props) {
   const Medicine = (props) =>{
     return(
       <Paper className='text-center'>
-          <span>SAMPLE PRICING FOR</span>
-          <Link href= {"/virtualme/"+props.item.name}><h2>{props.item.name}</h2></Link>
-          <span>{props.item.amt}</span>
+        <Grid container direction={"column"} alignContent={"center"}>
+          <Grid item md={12}>
+            <span className='carousel_header'>SAMPLE PRICING FOR</span>
+          </Grid>
+          <Grid item md={12}>
+            <Link href= {"/virtualme/"+props.item.name} className='secondary'>{props.item.name}</Link>
+          </Grid>
+          <Grid item md={12}>
+            <span>{props.item.amt}</span>
+          </Grid>
+        </Grid>
       </Paper>
     );
   }
 
   return (
-    <div>
+    <div className='page1'>
       <MDBNavbar className="navbar navbar-expand-lg navbar-light bg-light">
         <div className="container-fluid">
           <div className="collapse navbar-collapse">
@@ -100,10 +107,10 @@ export default function Virtual(props) {
       <Grid container direction={"row"} justifyContent={"center"} alignItems={"center"} className="py-5 section1_1">
         <Grid item container md={5} direction={"column"} alignItems={"center"} justifyContent={"center"}>
           <Grid item>
-            <h1>Save up to 80%* on your prescriptions</h1>
+            <h1 className='white'>Save up to 80%* on your prescriptions</h1>
           </Grid>
           <Grid item>
-            <p>Find your prescriptions to see how much you'll save</p>
+            <p className='white'>Find your prescriptions to see how much you'll save</p>
           </Grid>
           <Grid item sx={{width:'80%'}}>
             <Paper
@@ -233,7 +240,7 @@ export default function Virtual(props) {
               <Card>
                 <CardActionArea>
                   <CardContent>
-                    <Typography gutterBottom variant="h5" component="div" color="primary" >
+                    <Typography gutterBottom variant="h5" component="div" className='secondary question_header'>
                       What pharmacies accept SingleCare?
                     </Typography>
                     <Typography>
@@ -250,7 +257,7 @@ export default function Virtual(props) {
               <Card>
                 <CardActionArea>
                   <CardContent>
-                    <Typography gutterBottom variant="h5" component="div" color="primary" >
+                    <Typography gutterBottom variant="h5" component="div" color="primary"  className='secondary question_header'>
                       Why did I receive a prescription savings card?
                     </Typography>
                     <Typography>
@@ -266,7 +273,7 @@ export default function Virtual(props) {
               <Card>
                 <CardActionArea>
                   <CardContent>
-                    <Typography gutterBottom variant="h5" component="div" color="primary" >
+                    <Typography gutterBottom variant="h5" component="div" color="primary"  className='secondary question_header'>
                       Are over-the-counter medications covered?
                     </Typography>
                     <Typography>
@@ -281,7 +288,7 @@ export default function Virtual(props) {
       </Grid>
    
       <Grid container direction={"row"} justifyContent={"center"} alignItems={"center"} className="py-5 section1_5">
-        <Grid container item md={7} direction={"row"} alignItems={"center"} justifyContent={"center"}>
+        <Grid container item md={7} direction={"row"} alignItems={"flex-start"} justifyContent={"center"}>
           <Grid item container direction={"column"} md={3}>
             <Grid item>
               <h5 className='mb-2'>SINGLECARE</h5>
