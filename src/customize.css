@@ -1,12 +1,13 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans');
+
 .page1 *{
     color: #565a5c;
-    font-family: 'Open Sans',sans-serif;
+    font-family: "Open Sans", sans-serif;
 }
 .page2 *{
     color: #565a5c;
-    font-family: 'Open Sans',sans-serif;
+    font-family: "Open Sans", sans-serif;
 }
-
 
 .secondary{
     color:#00baf2;
@@ -234,7 +235,9 @@
 
 .section2_1 .get_coupon{
     background-color: #5ac787;
+    color:white;
     text-transform: none;
+    font-family: 'Open Sans',sans-serif;
 }
 
 .section2_1 .get_coupon:hover{
