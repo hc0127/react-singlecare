@@ -20,8 +20,11 @@ import {
   Zoom
 } from '@mui/material';
 import {
-  Search
+  Search,
+  ArrowForwardIos,
+  ArrowBackIos
 } from '@mui/icons-material';
+
 import Carousel from 'react-material-ui-carousel'
 
 import axios from '../config/server.config';
@@ -32,52 +35,55 @@ export default function Virtual(props) {
   const [medicineData, setMedicineData] = React.useState([]);
   const [loading, setLoading] = React.useState(false);
   const [selMidicine, setSelMedicine] = React.useState(0);
-  const [effect, setEffect] = React.useState(0);
+  const [effect, setEffect] = React.useState(false);
 
   const navigate = useNavigate();
 
   useEffect(() => {
     setLoading(true);
     axios
-    .get('v1/popular')
-    .then(function(res){
-      console.log(res);
-      setPopularMedicineData(res.data.popular_now);
-      setMedicineData(res.data.popular_now);
-      setPricings(res.data.sample_pricing);
-      setLoading(false);
-    });
+      .get('v1/popular')
+      .then(function (res) {
+        console.log(res);
+        setPopularMedicineData(res.data.popular_now);
+        setMedicineData(res.data.popular_now);
+        setPricings(res.data.sample_pricing);
+        setLoading(false);
+      });
   }, []);
 
-  const setSearchResult = (e,val) =>{
-    if(val == ""){
+  const setSearchResult = (e, val) => {
+    if (val == "") {
       setMedicineData(popularMedicineData);
-    }else{
+    } else {
       axios
-      .get('v1/search?q='+e.target.value)
-      .then(function(res){
-        setMedicineData(res.data);
-      });
+        .get('v1/search?q=' + e.target.value)
+        .then(function (res) {
+          setMedicineData(res.data);
+        });
     }
   }
-  const goDetail = (e,val) =>{
-    navigate("/virtualme/"+val.seo_name);
-  }
-  const changePricing = (e) =>{
-    setEffect(false);
-    setSelMedicine(e);
-    setEffect(true);
+  const goDetail = (e, val) => {
+    navigate("/virtualme/" + val.seo_name);
   }
 
-  const Medicine = (props) =>{
-    return(
+  const changePricing = async (e) => {
+    setEffect(true);
+    setSelMedicine(e)
+    setTimeout(() => {
+      setEffect(false);
+   }, 1000)
+  }
+
+  const Medicine = (props) => {
+    return (
       <Paper className='text-center'>
         <Grid container direction={"column"} alignContent={"center"}>
           <Grid item md={12}>
             <span className='carousel_header'>SAMPLE PRICING FOR</span>
           </Grid>
           <Grid item md={12}>
-            <Link href= {"/virtualme/"+props.item.name} className='secondary'>{props.item.name}</Link>
+            <Link href={"/virtualme/" + props.item.name} className='secondary'>{props.item.name}</Link>
           </Grid>
           <Grid item md={12}>
             <span>{props.item.amt}</span>
@@ -103,21 +109,21 @@ export default function Virtual(props) {
           </div>
         </div>
       </MDBNavbar>
-      
+
       <Grid container direction={"row"} justifyContent={"center"} alignItems={"center"} className="py-5 section1_1">
-        <Grid item container md={5} direction={"column"} alignItems={"center"} justifyContent={"center"}>
+        <Grid item container sm={12} md={10} lg={6} xl={3} direction={"column"} alignItems={"center"} justifyContent={"center"}>
           <Grid item>
             <h1 className='white'>Save up to 80%* on your prescriptions</h1>
           </Grid>
           <Grid item>
             <p className='white'>Find your prescriptions to see how much you'll save</p>
           </Grid>
-          <Grid item sx={{width:'80%'}}>
+          <Grid item sx={{ width: '75%' }}>
             <Paper
               className='p-2'
-              sx={{  display: 'flex', alignItems: 'center' }}
+              sx={{ display: 'flex', alignItems: 'center' }}
             >
-              <Grid container direction={"row"}  justifyContent={"space-between"} alignItems={"center"}>
+              <Grid container direction={"row"} justifyContent={"space-between"} alignItems={"center"}>
                 <Grid item>
                   <IconButton aria-label="menu">
                     <Search />
@@ -129,16 +135,16 @@ export default function Virtual(props) {
                       display: 'block',
                       '& input': {
                         width: '100%',
-                        border:'none',
+                        border: 'none',
                         bgcolor: 'background.paper',
                         color: (theme) =>
                           theme.palette.getContrastText(theme.palette.background.paper),
                       },
                     }}
                     options={medicineData}
-                    onInputChange={(e,val) =>setSearchResult(e,val)}
-                    onChange={(e,val) => goDetail(e,val)}
-                    onBlur={() =>setMedicineData(popularMedicineData)}
+                    onInputChange={(e, val) => setSearchResult(e, val)}
+                    onChange={(e, val) => goDetail(e, val)}
+                    onBlur={() => setMedicineData(popularMedicineData)}
                     getOptionLabel={option => option.display_name}
 
                     renderInput={(params) => (
@@ -149,7 +155,7 @@ export default function Virtual(props) {
                   />
                 </Grid>
                 <Grid item>
-                  <Button variant="outlined">Search</Button>
+                  <Button variant="outlined" className='primary search'>Search</Button>
                 </Grid>
               </Grid>
             </Paper>
@@ -158,22 +164,22 @@ export default function Virtual(props) {
       </Grid>
 
       <Grid container direction={"row"} justifyContent={"center"} alignItems={"flex-start"} className="py-3 section1_2">
-        <Grid item container md={5} direction={"column"} alignItems={"center"} justifyContent={"flex-start"}>
-          <Grid item sx={{width:'100%'}}>
-            <Carousel onChange ={(e) => changePricing(e)}>
+        <Grid item container sm={8} md={8} lg={6} xl={3} direction={"column"} alignItems={"center"} justifyContent={"flex-start"}>
+          <Grid item sx={{ width: '100%' }}>
+            <Carousel onChange={(e) => changePricing(e)} autoPlay={false} duration={800} navButtonsAlwaysVisible={true} indicators={false} className="carousel">
               {
-                pricings.length !== 0 && pricings.map((medicine,index)=><Medicine key={index} item={medicine}/>)
+                pricings.length !== 0 && pricings.map((medicine, index) => <Medicine key={index} item={medicine} />)
               }
             </Carousel>
           </Grid>
           <Grid item >
-            <Zoom in={true} style={{ transitionDelay: '0ms'}}>
-              <div className='green_pin text-center'>{pricings.length !== 0 && pricings[selMidicine]?.price_green_pin}</div>
+            <Zoom in={true} style={{ transitionDelay: '0ms' }}>
+              <div className={effect ? 'green_pin text-center fade' : 'green_pin text-center'}>{pricings.length !== 0 && pricings[selMidicine]?.price_green_pin}</div>
             </Zoom>
             {
-             pricings.length !== 0 &&  pricings[selMidicine].prices_grey_pin?.map((grey_pin,index) =>{
-                return <Zoom in={true} style={{ transitionDelay: '500ms'}}>
-                  <div key={index} className={'grey_pin grey_pin'+index}>{grey_pin}</div>
+              pricings.length !== 0 && pricings[selMidicine].prices_grey_pin?.map((grey_pin, index) => {
+                return <Zoom in={true} style={{ transitionDelay: '500ms' }}>
+                  <div key={index} className={effect ? ' fade grey_pin grey_pin' + index : 'grey_pin grey_pin' + index}>{grey_pin}</div>
                 </Zoom>
               })
             }
@@ -189,9 +195,9 @@ export default function Virtual(props) {
           <Grid item container direction={"row"} justifyContent={"space-around"} alignItems={"center"}>
             <Grid item container md={3} direction={"column"} justifyContent={"center"} alignItems={"center"}>
               <Grid item>
-                <Zoom in={true} style={{ transitionDelay: '1000ms'}}>
+                <Zoom in={true} style={{ transitionDelay: '1000ms' }}>
                   <div className='step1'></div>
-                  </Zoom>
+                </Zoom>
               </Grid>
               <Grid item>
                 <p>STEP ONE</p>
@@ -202,7 +208,7 @@ export default function Virtual(props) {
             </Grid>
             <Grid item container md={3} direction={"column"} justifyContent={"center"} alignItems={"center"}>
               <Grid item>
-                <Zoom in={true} style={{ transitionDelay: '1000ms'}}>
+                <Zoom in={true} style={{ transitionDelay: '1000ms' }}>
                   <div className='step2'></div>
                 </Zoom>
               </Grid>
@@ -215,7 +221,7 @@ export default function Virtual(props) {
             </Grid>
             <Grid item container md={3} direction={"column"} justifyContent={"center"} alignItems={"center"}>
               <Grid item>
-                <Zoom in={true} style={{ transitionDelay: '1000ms'}}>
+                <Zoom in={true} style={{ transitionDelay: '1000ms' }}>
                   <div className='step3'></div>
                 </Zoom>
               </Grid>
@@ -286,8 +292,19 @@ export default function Virtual(props) {
           </Grid>
         </Grid>
       </Grid>
-   
-      <Grid container direction={"row"} justifyContent={"center"} alignItems={"center"} className="py-5 section1_5">
+
+      <Grid container direction={"row"} justifyContent={"center"} alignItems={"center"} className="py-3 px-1 section1_5">
+        <Grid item container xs={12} sm={9} md={6} direction={"column"} justifyContent={"center"} alignItems={"flex-start"}>
+          <Grid item>
+            <p>© 2023 SingleCare Administrators. All Rights Reserved.</p>
+            <p>* Prescription savings vary by prescription and by pharmacy, and may reach up to 80% off cash price.</p>
+            <p>Pharmacy names, logos, brands, and other trademarks are the property of their respective owners.</p>
+            <p>This is not insurance. This is a discount prescription drug card and it's free to our members. If assistance is needed, please call the help line at 844-234-3057.</p>
+          </Grid>
+        </Grid>
+      </Grid>
+
+      {/* <Grid container direction={"row"} justifyContent={"center"} alignItems={"center"} className="py-5 section1_5">
         <Grid container item md={7} direction={"row"} alignItems={"flex-start"} justifyContent={"center"}>
           <Grid item container direction={"column"} md={3}>
             <Grid item>
@@ -386,7 +403,7 @@ export default function Virtual(props) {
             </Grid>
           </Grid>
         </Grid>
-      </Grid>
+      </Grid> */}
 
       <Backdrop
         sx={{ color: '#fff', zIndex: 2 }}
