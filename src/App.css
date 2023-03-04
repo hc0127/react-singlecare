@@ -1,5 +1,10 @@
 @import url("https://fonts.google.com");
 
+body{
+  font-family: 'Open Sans',sans-serif;
+  color: #565a5c;
+}
+
 .App {
   text-align: center;
 }

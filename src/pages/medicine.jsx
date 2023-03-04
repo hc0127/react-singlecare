@@ -10,7 +10,6 @@ import {
   MDBModalContent,
   MDBModalTitle,
 } from "mdb-react-ui-kit";
-
 import {
   Grid,
   Card,
@@ -31,7 +30,6 @@ import {
   Backdrop,
   CircularProgress
 } from '@mui/material';
-
 import{
   TabContext,
   TabList,
@@ -43,6 +41,7 @@ import {
   LocationOn,
   ArrowDropDownCircle
 } from '@mui/icons-material';
+import styled from 'styled-components'
 
 import axios from '../config/server.config';
 
@@ -244,9 +243,9 @@ export default function Medicine(props) {
   }
 
   const ready = mainData.length == 0 ? false : true;
-  console.log(drugData?.MonoGraphData);
+  console.log(pharmacyData?.PharmacyPricings);
   return (
-    <>
+    <div className='page2'>
       <MDBNavbar className="navbar navbar-expand-lg navbar-light bg-light">
         <div className="container-fluid">
           <div className="collapse navbar-collapse">
@@ -340,8 +339,8 @@ export default function Medicine(props) {
           <Grid item container direction={"column"} alignItems={"center"} justifyContent={"center"} className="mt-2">
             <Grid item container md={12} alignItems={"center"} justifyContent={"center"}>
                 <Grid item>
-                    <Paper className='p-2'>
-                      <h2>{ready && mainData[brand]?.Value[form]?.Value[dosage]?.Value[quantity]?.Value.MetaTitle}</h2>
+                    <Paper className='p-3'>
+                      <h1>{ready && mainData[brand]?.Value[form]?.Value[dosage]?.Value[quantity]?.Value.MetaTitle}</h1>
                       <p>{ready && mainData[brand]?.Value[form]?.Value[dosage]?.Value[quantity]?.Value.Description}</p>
                       <Divider />
                       <Grid container direction={"row"} columnSpacing={2} className="p-2" alignItems={"center"} justifyContent={"flex-start"}>
@@ -558,24 +557,24 @@ export default function Medicine(props) {
                   <Grid container direction={"row"}>
                     <Grid item container direciton={"row"} alignItems={"center"} justifyContent={"space-between"}  md={4}>
                       <Grid item sx={{width:'120px'}}>
-                        <img src={pharmacy.Pharmacy && pharmacy.Pharmacy.LogoUrl} alt="No Image" />
+                        <img src={pharmacy?.Pharmacy?.LogoUrl} alt="No Image" />
                       </Grid>
                       <Grid item>
-                        {pharmacy.Pharmacy && parseFloat(pharmacy.Pharmacy.Distance).toFixed(2) + "miles"}
+                        <span className='distance'>{parseFloat(pharmacy?.Pharmacy?.Distance).toFixed(2) + " miles away"}</span>
                       </Grid>
                     </Grid>
                     <Grid item container direciton={"row"} alignItems={"center"} justifyContent={"flex-end"}  md={8}>
                       <Grid item>
-                        <h4 className="p-2 m-1">${pharmacy.Prices && pharmacy.Prices[0].Price}</h4>
+                        <h4 className="p-2 m-1 price">${pharmacy?.Prices[0]?.FormattedPrice}</h4>
                       </Grid>
                       <Grid item>
-                        <Button  variant="contained" className="py-3" color="success" onClick={() =>setModal({name:'amoxicillin', description:
+                        <Button  variant="contained" className="py-3 get_coupon" color={'success'} onClick={() =>setModal({name:'amoxicillin', description:
                             mainData[brand]?.Value[form]?.Value[dosage]?.Value[quantity]?.Value.Quantity + '\t'+
                             mainData[brand]?.Value[form]?.Value[dosage]?.Value[quantity]?.Value.Form + ','+
                             mainData[brand]?.Value[form]?.Value[dosage]?.Value[quantity]?.Value.Dosage + ' for $'+ 
-                            pharmacy.Prices[0].Price + ' at ' +
-                            pharmacy.Pharmacy.Name + 'pharmacy'
-                          })}>Get Free Coupon</Button>
+                            pharmacy?.Prices[0]?.Price + ' at ' +
+                            pharmacy?.Pharmacy?.Name + 'pharmacy'
+                          })}>Get free coupon</Button>
                       </Grid>
                     </Grid>
                   </Grid>
@@ -842,6 +841,6 @@ export default function Medicine(props) {
       >
         <CircularProgress color="inherit" />
       </Backdrop>
-    </>
+    </div>
   );
 }
