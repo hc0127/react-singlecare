@@ -711,12 +711,12 @@ export default function Medicine(props) {
                   <Tab label="Storage" value="6" />
                 </TabList>
               </Box>
-              <TabPanel value="1"><List dense={true} sx={{listStyleType:'disc'}}>{drugData?.MonoGraphData?.HowToUses?.map((content, index) => { return <ListItem sx={{ display: 'list-item' }} key={index}>{content}</ListItem> })}</List></TabPanel>
-              <TabPanel value="2"><List dense={true} sx={{listStyleType:'disc'}}>{drugData?.MonoGraphData?.Directions?.map((content, index) => { return <Typography sx={{display:'list-item'}} key={index}>{content}</Typography> })}</List></TabPanel>
-              <TabPanel value="3"><List dense={true} sx={{listStyleType:'disc'}}>{drugData?.MonoGraphData?.WarningCautions?.map((content, index) => { return <Typography sx={{display:'list-item'}} key={index}>{content}</Typography> })}</List></TabPanel>
-              <TabPanel value="4"><List dense={true} sx={{listStyleType:'disc'}}>{drugData?.MonoGraphData?.LessSeriousSideEffects?.map((content, index) => { return <Typography sx={{display:'list-item'}} key={index}>{content}</Typography> })}</List></TabPanel>
-              <TabPanel value="5"><List dense={true} sx={{listStyleType:'disc'}}>{drugData?.MonoGraphData?.DrugFoodAvoidings.map((content, index) => { return <Typography sx={{display:'list-item'}} key={index}>{content}</Typography> })}</List></TabPanel>
-              <TabPanel value="6"><List dense={true} sx={{listStyleType:'disc'}}>{drugData?.MonoGraphData?.StorageDisposals.map((content, index) => { return <Typography sx={{display:'list-item'}} key={index}>{content}</Typography> })}</List></TabPanel>
+              <TabPanel value="1"><List dense={true} sx={{ listStyleType: 'disc' }}>{drugData?.MonoGraphData?.HowToUses?.map((content, index) => { return <ListItem sx={{ display: 'list-item' }} key={index}>{content}</ListItem> })}</List></TabPanel>
+              <TabPanel value="2"><List dense={true} sx={{ listStyleType: 'disc' }}>{drugData?.MonoGraphData?.Directions?.map((content, index) => { return <Typography sx={{ display: 'list-item' }} key={index}>{content}</Typography> })}</List></TabPanel>
+              <TabPanel value="3"><List dense={true} sx={{ listStyleType: 'disc' }}>{drugData?.MonoGraphData?.WarningCautions?.map((content, index) => { return <Typography sx={{ display: 'list-item' }} key={index}>{content}</Typography> })}</List></TabPanel>
+              <TabPanel value="4"><List dense={true} sx={{ listStyleType: 'disc' }}>{drugData?.MonoGraphData?.LessSeriousSideEffects?.map((content, index) => { return <Typography sx={{ display: 'list-item' }} key={index}>{content}</Typography> })}</List></TabPanel>
+              <TabPanel value="5"><List dense={true} sx={{ listStyleType: 'disc' }}>{drugData?.MonoGraphData?.DrugFoodAvoidings.map((content, index) => { return <Typography sx={{ display: 'list-item' }} key={index}>{content}</Typography> })}</List></TabPanel>
+              <TabPanel value="6"><List dense={true} sx={{ listStyleType: 'disc' }}>{drugData?.MonoGraphData?.StorageDisposals.map((content, index) => { return <Typography sx={{ display: 'list-item' }} key={index}>{content}</Typography> })}</List></TabPanel>
             </TabContext>
           </Grid>
           <Grid item container direction={"column"} justifyContent={"center"} alignItems={"center"} className="py-5 px-1 section2_4_5" >
@@ -781,7 +781,7 @@ export default function Medicine(props) {
                 <Grid item>
                   <img src='../logo.png' width='100px' />
                 </Grid>
-                <Grid item container direciton={"column"} alignItems={"center"} justifyContent={"center"} sx={{textAlign:'center'}}>
+                <Grid item container direciton={"column"} alignItems={"center"} justifyContent={"center"} sx={{ textAlign: 'center' }}>
                   <Grid item md={12}>
                     <MDBModalTitle>{modaldata?.name}</MDBModalTitle>
                   </Grid>
@@ -811,24 +811,24 @@ export default function Medicine(props) {
                   </Grid>
                 </Grid>
                 {modalsendtype &&
-                <>
-                  <Grid item container direction={"row"} columnSpacing={2} alignItems={"center"} justifyContent={"center"} className="mt-2">
-                    <Grid item>
+                  <>
+                    <Grid item container direction={"row"} columnSpacing={2} alignItems={"center"} justifyContent={"center"} className="mt-2">
+                      <Grid item>
                         <TextField
                           label={modalsendtype == "email" ? "Email address" : "Phone number"}
                           size="small"
                           variant="standard"
                           required
                         />
+                      </Grid>
+                      <Grid item>
+                        <Button variant='outlined'>Send</Button>
+                      </Grid>
                     </Grid>
-                    <Grid item>
-                      <Button variant='outlined'>Send</Button>
+                    <Grid item className='mt-2'>
+                      <span>By clicking "Send", I agree to Singlecare's Terms & Conditions.</span>
                     </Grid>
-                  </Grid>
-                  <Grid item className='mt-2'>
-                    <span>By clicking "Send", I agree to Singlecare's Terms & Conditions.</span>
-                  </Grid>
-                </>
+                  </>
                 }
               </Grid>
             </MDBModalBody>

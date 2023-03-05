@@ -72,7 +72,7 @@ export default function Virtual(props) {
     setSelMedicine(e)
     setTimeout(() => {
       setEffect(false);
-   }, 1000)
+    }, 1000)
   }
 
   const Medicine = (props) => {
@@ -263,7 +263,7 @@ export default function Virtual(props) {
             </Paper>
           </Grid>
           <Grid item className="mb-2">
-            <Paper  elevation={1} className="p-3">
+            <Paper elevation={1} className="p-3">
               <Typography gutterBottom variant="h5" component="div" className='secondary question_header'>
                 Are over-the-counter medications covered?
               </Typography>

@@ -1,60 +1,61 @@
 @import url('https://fonts.googleapis.com/css?family=Open+Sans');
 
-.page1 *{
-    color: #565a5c;
-    font-family: "Open Sans", sans-serif;
-}
-.page2 *{
+.page1 * {
     color: #565a5c;
     font-family: "Open Sans", sans-serif;
 }
 
-.primary{
+.page2 * {
+    color: #565a5c;
+    font-family: "Open Sans", sans-serif;
+}
+
+.primary {
     color: #565a5c;
 }
 
-.secondary{
-    color:#00baf2;
+.secondary {
+    color: #00baf2;
 }
 
-.white{
-    color:white !important;
+.white {
+    color: white !important;
 }
 
-.section1_1{
-    background:#79d2fe url('asserts/img/bg-masthead.jpg') bottom center no-repeat ;
+.section1_1 {
+    background: #79d2fe url('asserts/img/bg-masthead.jpg') bottom center no-repeat;
     background-position: bottom -50px center;
     background-size: cover;
 }
 
-.section1_1 h1{
+.section1_1 h1 {
     font-size: 36px;
     text-shadow: 0 0 15px rgb(0 0 0 / 20%);
-    font-weight:300;
+    font-weight: 300;
 }
 
-.section1_1 .searchBox input:focus{
+.section1_1 .searchBox input:focus {
     border: none;
 }
 
-.section1_1 button.search{
-    outline:none;
+.section1_1 button.search {
+    outline: none;
     color: #565a5c;
     border: 1px solid #565a5c;
 }
 
-.section1_1 button.search:hover{
-    outline:none;
+.section1_1 button.search:hover {
+    outline: none;
     box-shadow: inset 0 0 0 1px #565a5c;
 }
 
-.section1_2{
+.section1_2 {
     background: url('asserts/img/bg-map-sample.png') center center no-repeat;
     height: 450px;
     padding-top: 30px;
 }
 
-.section1_2 a.secondary{
+.section1_2 a.secondary {
     font-size: 22px;
     font-weight: 300;
     line-height: 120%;
@@ -62,11 +63,11 @@
     color: #00baf2;
 }
 
-.section1_2 a.secondary:hover{
+.section1_2 a.secondary:hover {
     color: #00baf2;
 }
 
-.section1_2 .carousel_header{
+.section1_2 .carousel_header {
     font-size: 12px;
     font-weight: bold;
     line-height: 120%;
@@ -75,14 +76,15 @@
     margin: 0 0 5px;
 }
 
-.section1_2 .carousel button{
-    color:#e6e6e6;
+.section1_2 .carousel button {
+    color: #e6e6e6;
     background-color: white;
-    border:2px solid #e6e6e6;
+    border: 2px solid #e6e6e6;
 }
 
-.section1_2 .green_pin{
-    background:url('asserts/img/green-pin.svg') no-repeat center;    color: #fff;
+.section1_2 .green_pin {
+    background: url('asserts/img/green-pin.svg') no-repeat center;
+    color: #fff;
     width: 68px;
     height: 44px;
     text-align: center;
@@ -92,8 +94,9 @@
     top: 120px;
 }
 
-.section1_2 .grey_pin{
-    background:url('asserts/img/dark-pin.svg')no-repeat center;    color: #fff;
+.section1_2 .grey_pin {
+    background: url('asserts/img/dark-pin.svg')no-repeat center;
+    color: #fff;
     width: 68px;
     height: 44px;
     text-align: center;
@@ -102,49 +105,46 @@
     position: relative;
 }
 
-.fade_effect
-{
-  animation: fadeinout 2s;
+.fade_effect {
+    animation: fadeinout 2s;
 }
 
-@keyframes fadeinout
-{
-  0%{
-    opacity:0;
-  }
+@keyframes fadeinout {
+    0% {
+        opacity: 0;
+    }
 
-  100%
-  {
-    opacity:1;
-  }
+    100% {
+        opacity: 1;
+    }
 }
 
-.section1_2 .grey_pin0{
+.section1_2 .grey_pin0 {
     left: 120px;
 }
 
-.section1_2 .grey_pin1{
-    right:120px;
+.section1_2 .grey_pin1 {
+    right: 120px;
 }
 
-.section1_2 .grey_pin2{
-    left:250px;
+.section1_2 .grey_pin2 {
+    left: 250px;
 }
 
-.section1_2 .grey_pin3{
-    right:230px;
+.section1_2 .grey_pin3 {
+    right: 230px;
 }
 
-.section1_2 .grey_pin4{
-    right:50px;
+.section1_2 .grey_pin4 {
+    right: 50px;
 }
 
-.section1_3{
-    color:black;
-    
+.section1_3 {
+    color: black;
+
 }
 
-.section1_3 .step1{
+.section1_3 .step1 {
     background: url('asserts/img/sprite-steps-coupon.png') no-repeat;
     background-size: 146px 480px;
     height: 146px;
@@ -153,7 +153,7 @@
     background-position: top center;
 }
 
-.section1_3 .step2{
+.section1_3 .step2 {
     background: url('asserts/img/sprite-steps-coupon.png') no-repeat;
     background-size: 146px 480px;
     height: 146px;
@@ -162,7 +162,7 @@
     background-position: center center;
 }
 
-.section1_3 .step3{
+.section1_3 .step3 {
     background: url('asserts/img/sprite-steps-coupon.png') no-repeat;
     background-size: 146px 480px;
     height: 146px;
@@ -171,25 +171,25 @@
     background-position: bottom center;
 }
 
-.section1_4{
+.section1_4 {
     background: #f9f9f9;
 }
 
-.section1_4 .question_header{
+.section1_4 .question_header {
     font-size: 22px;
     font-weight: 300;
     line-height: 120%;
 }
 
-.section1_5{
+.section1_5 {
     background: #565a5c;
 }
 
-.page1 .section1_5 *{
-    color:white;
+.page1 .section1_5 * {
+    color: white;
 }
 
-.section1_5 .social{
+.section1_5 .social {
     background-image: url('asserts/img/sc-footer-sprite@2x.png');
     background-repeat: no-repeat;
     background-size: 270px 1200px;
@@ -199,23 +199,27 @@
     width: 34px;
 }
 
-.section1_5 .facebook{
-    background-position:top -300px left -120px
-}
-.section1_5 .instagram{
-    background-position:top -750px left -120px
-}
-.section1_5 .linkedin{
-    background-position:top -484px left -120px
-}
-.section1_5 .twitter{
-    background-position:top -392px left -120px
-}
-.section1_5 .trustpilot{
-    background-position:top -842px left -120px
+.section1_5 .facebook {
+    background-position: top -300px left -120px
 }
 
-.section1_5 .pharmacy{   
+.section1_5 .instagram {
+    background-position: top -750px left -120px
+}
+
+.section1_5 .linkedin {
+    background-position: top -484px left -120px
+}
+
+.section1_5 .twitter {
+    background-position: top -392px left -120px
+}
+
+.section1_5 .trustpilot {
+    background-position: top -842px left -120px
+}
+
+.section1_5 .pharmacy {
     background: url('asserts/img/sc-logo-nabp@2x.png') top center no-repeat;
     background-size: 159px 35px;
     display: block;
@@ -223,7 +227,7 @@
     width: 159px;
 }
 
-.section1_5 .bbb{
+.section1_5 .bbb {
     background: url('asserts/img/sc-footer-sprite@2x.png') no-repeat;
     background-position: top -80px center;
     background-size: 135px 600px;
@@ -233,7 +237,7 @@
     width: 104px;
 }
 
-.section1_5 .appstore{
+.section1_5 .appstore {
     background: url('asserts/img/sc-footer-sprite@2x.png') no-repeat;
     background-position: top -466px center;
     background-size: 135px 600px;
@@ -243,7 +247,7 @@
     width: 120px;
 }
 
-.section1_5 .googleplay{
+.section1_5 .googleplay {
     background: url('asserts/img/sc-footer-sprite@2x.png') no-repeat;
     background-position: top -536px center;
     background-size: 135px 600px;
@@ -253,37 +257,39 @@
     width: 135px;
 }
 
-.page1 .section1_5 span,.page1 .section1_5 p,.page1 .section1_5 h5{
+.page1 .section1_5 span,
+.page1 .section1_5 p,
+.page1 .section1_5 h5 {
     line-height: 1.6;
     font-size: 13px;
 }
 
-.section2_1 h1{
+.section2_1 h1 {
     font-size: 28px;
     margin: 0 auto 15px;
 }
 
-.section2_1 .searchBox input:focus{
+.section2_1 .searchBox input:focus {
     border: none;
 }
 
-.section2_1 button.search{
-    outline:none;
+.section2_1 button.search {
+    outline: none;
     color: #565a5c;
     border: 1px solid #565a5c;
 }
 
-.section2_1 button.search:hover{
-    outline:none;
+.section2_1 button.search:hover {
+    outline: none;
     box-shadow: inset 0 0 0 1px #565a5c;
 }
 
-.section2_1 .distance{
+.section2_1 .distance {
     color: #aaa;
     font-size: 14px;
 }
 
-.section2_1 .price{
+.section2_1 .price {
     color: #565a5c;
     font-size: 28px;
     font-weight: 100;
@@ -291,80 +297,85 @@
     margin: 0;
 }
 
-.section2_1 .get_coupon{
+.section2_1 .get_coupon {
     background-color: #5ac787;
-    color:white;
+    color: white;
     text-transform: none;
-    font-family: 'Open Sans',sans-serif;
+    font-family: 'Open Sans', sans-serif;
 }
 
-.section2_1 .get_coupon:hover{
+.section2_1 .get_coupon:hover {
     background-color: #87d3a7;
 }
 
-.page2 div.section2_2{
+.page2 div.section2_2 {
     color: white;
     background: #2b91c5;
 }
 
-.section2_2 svg{
-    width:256px;
+.section2_2 svg {
+    width: 256px;
     height: 100px;
     background-repeat: no-repeat;
     background-position: center;
 }
 
-.section2_2 .cvs{
+.section2_2 .cvs {
     background-size: 218px 29px;
     background-image: url('asserts/img/logo-white-cvs.svg');
 }
 
-.section2_2 .target{
+.section2_2 .target {
     background-size: 176px 39px;
     background-image: url('asserts/img/logo-white-target.svg');
 }
 
-.section2_2 .longs{
+.section2_2 .longs {
     background-size: 216px 38px;
     background-image: url('asserts/img/logo-white-longs.svg');
 }
 
-.section2_2 .walmart{
+.section2_2 .walmart {
     background-size: 216px 38px;
     background-image: url('asserts/img/logo-white-walmart.svg');
 }
-.section2_2 .kronger{
+
+.section2_2 .kronger {
     background-size: 216px 38px;
     background-image: url('asserts/img/logo-white-kroger.svg');
 }
-.section2_2 .frys{
+
+.section2_2 .frys {
     background-size: 216px 38px;
     background-image: url('asserts/img/logo-white-frys.svg');
 }
-.section2_2 .harristeeter{
+
+.section2_2 .harristeeter {
     background-size: 216px 38px;
     background-image: url('asserts/img/logo-white-harristeeter.svg');
 }
-.section2_2 .walgreens{
+
+.section2_2 .walgreens {
     background-size: 216px 38px;
     background-image: url('asserts/img/logo-white-walgreens.svg');
 }
-.section2_2 .duanereade{
+
+.section2_2 .duanereade {
     background-size: 216px 38px;
     background-image: url('asserts/img/logo-white-duanereade.png');
 }
 
-.section2_3{
+.section2_3 {
     background-color: #f3f3f3;
 }
 
-.section2_3 .question_header{
+.section2_3 .question_header {
     font-size: 22px;
     font-weight: 300;
     line-height: 120%;
 }
 
-.section2_4 strong{
+.section2_4 strong {
     display: block;
     font-size: 12px;
     line-height: 120%;
@@ -372,19 +383,19 @@
     text-transform: uppercase;
 }
 
-.section2_4 .tab .MuiTabs-indicator{
-    background-color:#5ac787;
+.section2_4 .tab .MuiTabs-indicator {
+    background-color: #5ac787;
 }
 
-.section2_4 .tab button{
-    color:#aaa;
+.section2_4 .tab button {
+    color: #aaa;
 }
 
-.section2_4 .tab button.Mui-selected{
-    color:#565a5c;
+.section2_4 .tab button.Mui-selected {
+    color: #565a5c;
 }
 
-.section2_4_5 .step1{
+.section2_4_5 .step1 {
     background: url('asserts/img/sprite-steps-coupon.png') no-repeat;
     background-size: 146px 480px;
     height: 146px;
@@ -393,7 +404,7 @@
     background-position: top center;
 }
 
-.section2_4_5 .step2{
+.section2_4_5 .step2 {
     background: url('asserts/img/sprite-steps-coupon.png') no-repeat;
     background-size: 146px 480px;
     height: 146px;
@@ -402,7 +413,7 @@
     background-position: center center;
 }
 
-.section2_4_5 .step3{
+.section2_4_5 .step3 {
     background: url('asserts/img/sprite-steps-coupon.png') no-repeat;
     background-size: 146px 480px;
     height: 146px;
@@ -411,27 +422,29 @@
     background-position: bottom center;
 }
 
-.section2_5{
+.section2_5 {
     background: #565a5c;
 }
 
-.page2 .section2_5 *{
-    color:white;
+.page2 .section2_5 * {
+    color: white;
 }
 
-.page2 .section2_5 span,.page2 .section2_5 p,.page2 .section2_5 h5{
+.page2 .section2_5 span,
+.page2 .section2_5 p,
+.page2 .section2_5 h5 {
     line-height: 1.6;
     font-size: 13px;
 }
 
-.section2_modal .card_image{
-  background: url('asserts/img/singlecare-card.png');
-  background-size:cover;
-  width: 200px;
-  height: 126px;
+.section2_modal .card_image {
+    background: url('asserts/img/singlecare-card.png');
+    background-size: cover;
+    width: 200px;
+    height: 126px;
 }
 
-.section2_modal .card_image:before{
+.section2_modal .card_image:before {
     background: url('asserts/img/pill-oblong-pink.png') no-repeat;
     background-position: 20px 50px;
     background-size: 50px;
@@ -443,23 +456,23 @@
     left: 0%;
     top: 0%;
     transform: rotate(-12deg);
-  }
+}
 
-  .section2_modal .card_image:after{
-        background: url('asserts/img/pill-oblong-pink.png') no-repeat;
-        background-position: 20px 50px;
-        background-size: 50px;
-        content: '';
-        display: inline-block;
-        height: 200px;
-        width: 100px;
-        position: absolute;
-        right: 0%;
-        top: 0%;
-        transform: rotate(-92deg);
-    }
-    
-  .section2_modal .selections:before{
+.section2_modal .card_image:after {
+    background: url('asserts/img/pill-oblong-pink.png') no-repeat;
+    background-position: 20px 50px;
+    background-size: 50px;
+    content: '';
+    display: inline-block;
+    height: 200px;
+    width: 100px;
+    position: absolute;
+    right: 0%;
+    top: 0%;
+    transform: rotate(-92deg);
+}
+
+.section2_modal .selections:before {
     background: url('asserts/img/pill-oblong-pink.png') no-repeat;
     background-position: 50px 150px;
     background-size: 50px;
