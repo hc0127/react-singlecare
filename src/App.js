@@ -8,7 +8,7 @@ import Virtual from "./pages/virtual";
 import Medicine from "./pages/medicine";
 import { createBrowserHistory } from "history";
 import { ThemeProvider,createTheme } from "@mui/material/styles";
-import { blue, pink } from "@mui/material/colors";
+import { blue, pink,green } from "@mui/material/colors";
 
 const theme = createTheme({
   palette: {
@@ -22,6 +22,11 @@ const theme = createTheme({
       main: pink[500],
       dark: pink[700],
     },
+    green:{
+      light: green[300],
+      main: green[500],
+      dark: green[700],
+    }
   },
   breakpoints: {
     values: {

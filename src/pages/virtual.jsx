@@ -174,12 +174,12 @@ export default function Virtual(props) {
           </Grid>
           <Grid item >
             <Zoom in={true} style={{ transitionDelay: '0ms' }}>
-              <div className={effect ? 'green_pin text-center fade' : 'green_pin text-center'}>{pricings.length !== 0 && pricings[selMidicine]?.price_green_pin}</div>
+              <div className={effect ? 'green_pin text-center fade_effect' : 'green_pin text-center'}>{pricings.length !== 0 && pricings[selMidicine]?.price_green_pin}</div>
             </Zoom>
             {
               pricings.length !== 0 && pricings[selMidicine].prices_grey_pin?.map((grey_pin, index) => {
                 return <Zoom in={true} style={{ transitionDelay: '2000ms' }}>
-                  <div key={index} className={effect ? ' fade grey_pin grey_pin' + index : 'grey_pin grey_pin' + index}>{grey_pin}</div>
+                  <div key={index} className={effect ? ' fade_effect grey_pin grey_pin' + index : 'grey_pin grey_pin' + index}>{grey_pin}</div>
                 </Zoom>
               })
             }
