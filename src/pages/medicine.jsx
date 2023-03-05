@@ -711,12 +711,12 @@ export default function Medicine(props) {
                   <Tab label="Storage" value="6" />
                 </TabList>
               </Box>
-              <TabPanel  value="1"><List dense={true}>{drugData?.MonoGraphData?.HowToUses?.map((content, index) => { return <ListItem sx={{ display: 'list-item' }} key={index}>{content}</ListItem> })}</List></TabPanel>
-              <TabPanel value="2"><List dense={true}>{drugData?.MonoGraphData?.Directions?.map((content, index) => { return <Typography sx={{display:'list-item'}} key={index}>{content}</Typography> })}</List></TabPanel>
-              <TabPanel value="3"><List dense={true}>{drugData?.MonoGraphData?.WarningCautions?.map((content, index) => { return <Typography sx={{display:'list-item'}} key={index}>{content}</Typography> })}</List></TabPanel>
-              <TabPanel justifyContent={"flex-start"} alignItems={"flex-start"} value="4"><List dense={true}>{drugData?.MonoGraphData?.LessSeriousSideEffects?.map((content, index) => { return <Typography sx={{display:'list-item'}} key={index}>{content}</Typography> })}</List></TabPanel>
-              <TabPanel value="5"><List dense={true}>{drugData?.MonoGraphData?.DrugFoodAvoidings.map((content, index) => { return <Typography sx={{display:'list-item'}} key={index}>{content}</Typography> })}</List></TabPanel>
-              <TabPanel value="6"><List dense={true}>{drugData?.MonoGraphData?.StorageDisposals.map((content, index) => { return <Typography sx={{display:'list-item'}} key={index}>{content}</Typography> })}</List></TabPanel>
+              <TabPanel value="1"><List dense={true} sx={{listStyleType:'disc'}}>{drugData?.MonoGraphData?.HowToUses?.map((content, index) => { return <ListItem sx={{ display: 'list-item' }} key={index}>{content}</ListItem> })}</List></TabPanel>
+              <TabPanel value="2"><List dense={true} sx={{listStyleType:'disc'}}>{drugData?.MonoGraphData?.Directions?.map((content, index) => { return <Typography sx={{display:'list-item'}} key={index}>{content}</Typography> })}</List></TabPanel>
+              <TabPanel value="3"><List dense={true} sx={{listStyleType:'disc'}}>{drugData?.MonoGraphData?.WarningCautions?.map((content, index) => { return <Typography sx={{display:'list-item'}} key={index}>{content}</Typography> })}</List></TabPanel>
+              <TabPanel value="4"><List dense={true} sx={{listStyleType:'disc'}}>{drugData?.MonoGraphData?.LessSeriousSideEffects?.map((content, index) => { return <Typography sx={{display:'list-item'}} key={index}>{content}</Typography> })}</List></TabPanel>
+              <TabPanel value="5"><List dense={true} sx={{listStyleType:'disc'}}>{drugData?.MonoGraphData?.DrugFoodAvoidings.map((content, index) => { return <Typography sx={{display:'list-item'}} key={index}>{content}</Typography> })}</List></TabPanel>
+              <TabPanel value="6"><List dense={true} sx={{listStyleType:'disc'}}>{drugData?.MonoGraphData?.StorageDisposals.map((content, index) => { return <Typography sx={{display:'list-item'}} key={index}>{content}</Typography> })}</List></TabPanel>
             </TabContext>
           </Grid>
           <Grid item container direction={"column"} justifyContent={"center"} alignItems={"center"} className="py-5 px-1 section2_4_5" >
