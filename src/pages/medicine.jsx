@@ -333,7 +333,7 @@ export default function Medicine(props) {
                     />
                   </Grid>
                   <Grid item>
-                    <Button variant="outlined">Search</Button>
+                    <Button variant="outlined" className='search'>Search</Button>
                   </Grid>
                 </Grid>
               </Paper>

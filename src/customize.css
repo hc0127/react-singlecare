@@ -263,6 +263,21 @@
     margin: 0 auto 15px;
 }
 
+.section2_1 .searchBox input:focus{
+    border: none;
+}
+
+.section2_1 button.search{
+    outline:none;
+    color: #565a5c;
+    border: 1px solid #565a5c;
+}
+
+.section2_1 button.search:hover{
+    outline:none;
+    box-shadow: inset 0 0 0 1px #565a5c;
+}
+
 .section2_1 .distance{
     color: #aaa;
     font-size: 14px;
