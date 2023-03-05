@@ -178,7 +178,7 @@ export default function Virtual(props) {
             </Zoom>
             {
               pricings.length !== 0 && pricings[selMidicine].prices_grey_pin?.map((grey_pin, index) => {
-                return <Zoom in={true} style={{ transitionDelay: '500ms' }}>
+                return <Zoom in={true} style={{ transitionDelay: '2000ms' }}>
                   <div key={index} className={effect ? ' fade grey_pin grey_pin' + index : 'grey_pin grey_pin' + index}>{grey_pin}</div>
                 </Zoom>
               })
@@ -188,12 +188,12 @@ export default function Virtual(props) {
       </Grid>
 
       <Grid container direction={"row"} justifyContent={"center"} alignItems={"center"} className="py-5 section1_3">
-        <Grid item container md={5} direction={"column"} alignItems={"center"} justifyContent={"center"}>
+        <Grid item container sm={10} md={8} xl={6} direction={"column"} alignItems={"center"} justifyContent={"center"}>
           <Grid item>
             <h3 className='mb-3'>Saving on prescriptions has never been easier</h3>
           </Grid>
           <Grid item container direction={"row"} justifyContent={"space-around"} alignItems={"center"}>
-            <Grid item container md={3} direction={"column"} justifyContent={"center"} alignItems={"center"}>
+            <Grid item container sm={4} md={4} direction={"column"} justifyContent={"center"} alignItems={"center"}>
               <Grid item>
                 <Zoom in={true} style={{ transitionDelay: '1000ms' }}>
                   <div className='step1'></div>
@@ -206,7 +206,7 @@ export default function Virtual(props) {
                 <span>Find your prescription</span>
               </Grid>
             </Grid>
-            <Grid item container md={3} direction={"column"} justifyContent={"center"} alignItems={"center"}>
+            <Grid item container sm={4} md={4} direction={"column"} justifyContent={"center"} alignItems={"center"}>
               <Grid item>
                 <Zoom in={true} style={{ transitionDelay: '1000ms' }}>
                   <div className='step2'></div>
@@ -219,7 +219,7 @@ export default function Virtual(props) {
                 <span>Compare pricing</span>
               </Grid>
             </Grid>
-            <Grid item container md={3} direction={"column"} justifyContent={"center"} alignItems={"center"}>
+            <Grid item container sm={4} md={4} direction={"column"} justifyContent={"center"} alignItems={"center"}>
               <Grid item>
                 <Zoom in={true} style={{ transitionDelay: '1000ms' }}>
                   <div className='step3'></div>
@@ -237,57 +237,39 @@ export default function Virtual(props) {
       </Grid>
 
       <Grid container direction={"row"} justifyContent={"center"} alignItems={"center"} className="py-5 section1_4">
-        <Grid item container md={6} direction={"column"} alignItems={"center"} justifyContent={"center"}>
+        <Grid item container sm={10} md={8} xl={6} direction={"column"} alignItems={"center"} justifyContent={"center"}>
           <Grid item className="mb-2">
             <h3>Prescription FAQs</h3>
           </Grid>
           <Grid item className="mb-2">
-            <Paper elevation={0} >
-              <Card>
-                <CardActionArea>
-                  <CardContent>
-                    <Typography gutterBottom variant="h5" component="div" className='secondary question_header'>
-                      What pharmacies accept SingleCare?
-                    </Typography>
-                    <Typography>
-                      Our pharmacy savings card is accepted nationwide at over 35,000 pharmacies, including CVS, Target, Longs Drugs, Walmart, Kroger, Fry's, Harris Teeter, Walgreens, Duane Reade and many more. Simply bring your SingleCare card to the pharmacy and ask the pharmacist to process your prescription using the BIN and PCN number found on your card.
-                      To look up a drug price or to see if your pharmacy accepts SingleCare, search for your prescription at the top of this page. You can also search for your prescription on the SingleCare app, available for both Android and iOS.
-                    </Typography>
-                  </CardContent>
-                </CardActionArea>
-              </Card>
+            <Paper elevation={1} className="p-3">
+              <Typography gutterBottom variant="h5" component="div" className='secondary question_header'>
+                What pharmacies accept SingleCare?
+              </Typography>
+              <Typography>
+                Our pharmacy savings card is accepted nationwide at over 35,000 pharmacies, including CVS, Target, Longs Drugs, Walmart, Kroger, Fry's, Harris Teeter, Walgreens, Duane Reade and many more. Simply bring your SingleCare card to the pharmacy and ask the pharmacist to process your prescription using the BIN and PCN number found on your card.
+                To look up a drug price or to see if your pharmacy accepts SingleCare, search for your prescription at the top of this page. You can also search for your prescription on the SingleCare app, available for both Android and iOS.
+              </Typography>
             </Paper>
           </Grid>
           <Grid item className="mb-2">
-            <Paper elevation={0} >
-              <Card>
-                <CardActionArea>
-                  <CardContent>
-                    <Typography gutterBottom variant="h5" component="div" className='secondary question_header'>
-                      Why did I receive a prescription savings card?
-                    </Typography>
-                    <Typography>
-                      We work with a series of partners to help identify Americans who could benefit from SingleCare's prescription savings. We believe all Americans should have access to the healthcare savings that SingleCare provides, so we invite individuals nationwide.
-                    </Typography>
-                  </CardContent>
-                </CardActionArea>
-              </Card>
+            <Paper elevation={1} className="p-3">
+              <Typography gutterBottom variant="h5" component="div" className='secondary question_header'>
+                Why did I receive a prescription savings card?
+              </Typography>
+              <Typography>
+                We work with a series of partners to help identify Americans who could benefit from SingleCare's prescription savings. We believe all Americans should have access to the healthcare savings that SingleCare provides, so we invite individuals nationwide.
+              </Typography>
             </Paper>
           </Grid>
           <Grid item className="mb-2">
-            <Paper elevation={0} >
-              <Card>
-                <CardActionArea>
-                  <CardContent>
-                    <Typography gutterBottom variant="h5" component="div" className='secondary question_header'>
-                      Are over-the-counter medications covered?
-                    </Typography>
-                    <Typography>
-                      SingleCare's prescription benefit only covers prescription medications. Some over-the-counter drugs, such as Advil, have stronger forms that require a prescription, and that form may be covered.
-                    </Typography>
-                  </CardContent>
-                </CardActionArea>
-              </Card>
+            <Paper  elevation={1} className="p-3">
+              <Typography gutterBottom variant="h5" component="div" className='secondary question_header'>
+                Are over-the-counter medications covered?
+              </Typography>
+              <Typography>
+                SingleCare's prescription benefit only covers prescription medications. Some over-the-counter drugs, such as Advil, have stronger forms that require a prescription, and that form may be covered.
+              </Typography>
             </Paper>
           </Grid>
         </Grid>
