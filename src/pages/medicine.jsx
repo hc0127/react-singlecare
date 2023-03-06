@@ -299,7 +299,7 @@ export default function Medicine(props) {
                         value={tmp_zipcode}
                       />
                       :
-                      <Button fullWidth onClick={() => setZipcode()}>{'' + zipdata.city}</Button>
+                      <Button fullWidth onClick={() => setZipcode()}>{zipdata.city ? zipdata.city : 'Enter Zip'}</Button>
                     }
                   </Grid>
                 </Grid>
