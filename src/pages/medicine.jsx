@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams,useLocation,useNavigate } from 'react-router-dom';
 
 import {
   MDBNavbar,
@@ -12,9 +12,6 @@ import {
 } from "mdb-react-ui-kit";
 import {
   Grid,
-  Card,
-  CardActionArea,
-  CardContent,
   Typography,
   Divider,
   Paper,
@@ -31,7 +28,6 @@ import {
   CircularProgress,
   List,
   ListItem,
-  ListItemText
 } from '@mui/material';
 import {
   TabContext,
@@ -64,6 +60,7 @@ export default function Medicine(props) {
 
   //dynamic datas
   const [popularMedicineData, setPopularMedicines] = React.useState([]);
+  const [selectedMedicine, setSelectedMedicine] = React.useState(null);
   const [medicineData, setMedicines] = React.useState([]);
   const [drugData, setDrugs] = React.useState([]);
   const [pharmacyData, setPharmacies] = React.useState([]);
@@ -76,6 +73,7 @@ export default function Medicine(props) {
   const open = Boolean(anchorEl);
   const navigate = useNavigate();
   const params = useParams();
+  const location = useLocation();
 
   const fetchData = async () => {
     await axios
@@ -97,8 +95,18 @@ export default function Medicine(props) {
     await axios
       .get('v1/popular')
       .then(function (res) {
+        if(location.search){
+          setSelectedMedicine({display_name:location.search.slice(3).replace(/%20/g," "),seo_name:params.medicine});
+        }
         setPopularMedicines(res.data.popular_now);
-        setMedicines(res.data.popular_now);
+        
+        let searchList = res.data.popular_now;
+        if(selectedMedicine && popularMedicineData.some(item => item .display_name === selectedMedicine.display_name && item.seo_name === selectedMedicine.seo_name)){
+        }else{
+          searchList = [...popularMedicineData,selectedMedicine];
+        }
+
+        setMedicines(searchList);
         setLoading(false);
       });
   }
@@ -113,7 +121,7 @@ export default function Medicine(props) {
       setMedicines(popularMedicineData);
     } else {
       axios
-        .get('v1/search?q=' + e.target?.value)
+        .get('v1/search?q=' + e?.target?.value)
         .then(function (res) {
           setMedicines(res.data);
         });
@@ -220,10 +228,10 @@ export default function Medicine(props) {
   }
 
   const goDetail = (e, val) => {
-    console.log(val);
     setLoading(true);
     formatData();
-    navigate("/virtualme/" + val.seo_name);
+    navigate("/virtualme/" + val.seo_name+'?q='+val.display_name);
+    setSelectedMedicine({display_name:val.display_name,seo_name:val.seo_name});
     const fetchData = async () => {
       await axios
         .get('v1/drugs-by-seo-name/' + val.seo_name)
@@ -246,7 +254,7 @@ export default function Medicine(props) {
   }
 
   const ready = mainData.length == 0 ? false : true;
-  console.log(pharmacyData?.PharmacyPricings);
+
   return (
     <div className='page2'>
       <MDBNavbar className="navbar navbar-expand-lg navbar-light bg-light">
@@ -319,6 +327,7 @@ export default function Medicine(props) {
                             theme.palette.getContrastText(theme.palette.background.paper),
                         },
                       }}
+                      value={selectedMedicine}
                       options={medicineData}
                       onInputChange={(e, val) => setSearchResult(e, val)}
                       onChange={(e, val) => goDetail(e, val)}
@@ -646,7 +655,7 @@ export default function Medicine(props) {
                     </Typography>
                     {
                       faq?.Question?.Answers?.map((answer, index) => {
-                        return <Typography>{answer.Text}</Typography>
+                        return <Typography key={index}>{answer.Text}</Typography>
                       })
                     }
                   </Paper>
