@@ -60,7 +60,7 @@ export default function Medicine(props) {
 
   //dynamic datas
   const [popularMedicineData, setPopularMedicines] = React.useState([]);
-  const [selectedMedicine, setSelectedMedicine] = React.useState(null);
+  const [selectedMedicine, setSelectedMedicine] = React.useState({seo_name:'',display_name:''});
   const [medicineData, setMedicines] = React.useState([]);
   const [drugData, setDrugs] = React.useState([]);
   const [pharmacyData, setPharmacies] = React.useState([]);
@@ -293,6 +293,7 @@ export default function Medicine(props) {
                         size={"small"}
                         autoFocus={focuseZipcode}
                         variant="standard"
+                        placeholder='Enter Zip'
                         onBlur={() => setFocusZipcode(false)}
                         onChange={(e) => changeZipcode(e)}
                         value={tmp_zipcode}
