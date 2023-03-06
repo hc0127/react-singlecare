@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { useParams,useLocation,useNavigate } from 'react-router-dom';
+import { useParams, useLocation, useNavigate } from 'react-router-dom';
 
 import {
   MDBNavbar,
@@ -56,11 +56,11 @@ export default function Medicine(props) {
   //zipcode
   const [focuseZipcode, setFocusZipcode] = React.useState(false);
   const [zipdata, setZipdata] = React.useState({ city: '', zip_code: 77084 });
-  const [tmp_zipcode, setTmpZipcode] = React.useState('');
+  const [tmp_zipcode, setTmpZipcode] = React.useState('77084');
 
   //dynamic datas
   const [popularMedicineData, setPopularMedicines] = React.useState([]);
-  const [selectedMedicine, setSelectedMedicine] = React.useState({seo_name:'',display_name:''});
+  const [selectedMedicine, setSelectedMedicine] = React.useState({ seo_name: '', display_name: '' });
   const [medicineData, setMedicines] = React.useState([]);
   const [drugData, setDrugs] = React.useState([]);
   const [pharmacyData, setPharmacies] = React.useState([]);
@@ -74,6 +74,20 @@ export default function Medicine(props) {
   const navigate = useNavigate();
   const params = useParams();
   const location = useLocation();
+
+  const setBlur = (e) => {
+    if (e?.relatedTarget?.className?.includes('location')) {
+      axios
+        .get('https://ipgeolocation.abstractapi.com/v1/?api_key=0b3f6c66786944718acac4aed8b7bf35')
+        .then(function (res) {
+          if(res.data.postal_code){
+            changeZipcode(res.data.postal_code);
+          }
+        })
+    }
+
+    setFocusZipcode(false);
+  }
 
   const fetchData = async () => {
     await axios
@@ -95,15 +109,15 @@ export default function Medicine(props) {
     await axios
       .get('v1/popular')
       .then(function (res) {
-        if(location.search){
-          setSelectedMedicine({display_name:location.search.slice(3).replace(/%20/g," "),seo_name:params.medicine});
+        if (location.search) {
+          setSelectedMedicine({ display_name: location.search.slice(3).replace(/%20/g, " "), seo_name: params.medicine });
         }
         setPopularMedicines(res.data.popular_now);
-        
+
         let searchList = res.data.popular_now;
-        if(selectedMedicine && popularMedicineData.some(item => item .display_name === selectedMedicine.display_name && item.seo_name === selectedMedicine.seo_name)){
-        }else{
-          searchList = [...popularMedicineData,selectedMedicine];
+        if (selectedMedicine && popularMedicineData.some(item => item.display_name === selectedMedicine.display_name && item.seo_name === selectedMedicine.seo_name)) {
+        } else {
+          searchList = [...popularMedicineData, selectedMedicine];
         }
 
         setMedicines(searchList);
@@ -203,11 +217,11 @@ export default function Medicine(props) {
 
   }
 
-  const changeZipcode = (e) => {
-    setTmpZipcode(e.target?.value);
-    if (e.target?.value.length == 5) {
+  const changeZipcode = (val) => {
+    setTmpZipcode(val);
+    if (val == 5) {
       setLoading(true);
-      axios.get('v1/zip_code/' + e.target?.value).then(function (res) {
+      axios.get('v1/zip_code/' + val).then(function (res) {
         setFocusZipcode(false);
         setZipdata(res.data);
         formatData();
@@ -230,8 +244,8 @@ export default function Medicine(props) {
   const goDetail = (e, val) => {
     setLoading(true);
     formatData();
-    navigate("/virtualme/" + val.seo_name+'?q='+val.display_name);
-    setSelectedMedicine({display_name:val.display_name,seo_name:val.seo_name});
+    navigate("/virtualme/" + val.seo_name + '?q=' + val.display_name);
+    setSelectedMedicine({ display_name: val.display_name, seo_name: val.seo_name });
     const fetchData = async () => {
       await axios
         .get('v1/drugs-by-seo-name/' + val.seo_name)
@@ -274,7 +288,7 @@ export default function Medicine(props) {
 
       <Grid container direction={"row"} justifyContent={"center"} alignItems={"center"} className="py-5 px-1 section2_1">
         <Grid item container xs={12} sm={10} md={8} xl={6} direction={"column"} alignItems={"center"} justifyContent={"center"}>
-          <Grid item container spacing={2} direction={"row"} alignItems={"center"} justifyContent={"center"} className="mt-2">
+          <Grid item container spacing={2} direction={"row"} alignItems={"flex-start"} justifyContent={"center"} className="section2_1_1 m-2">
             <Grid item md={4}>
               <Paper
                 className='p-2'
@@ -287,15 +301,15 @@ export default function Medicine(props) {
                     </IconButton>
                   </Grid>
                   <Grid item md={10} className='searchBox'>
-                    {focuseZipcode == true ?
+                    {focuseZipcode ?
                       <TextField
                         fullWidth
                         size={"small"}
                         autoFocus={focuseZipcode}
                         variant="standard"
                         placeholder='Enter Zip'
-                        onBlur={() => setFocusZipcode(false)}
-                        onChange={(e) => changeZipcode(e)}
+                        onBlur={(e) => setBlur(e)}
+                        onChange={(e) => changeZipcode(e.target.value)}
                         value={tmp_zipcode}
                       />
                       :
@@ -304,6 +318,11 @@ export default function Medicine(props) {
                   </Grid>
                 </Grid>
               </Paper>
+              {focuseZipcode &&
+                <Grid item>
+                  <Button fullWidth sx={{ display: 'inline-block' }} className="location" >Use current location</Button>
+                </Grid>
+              }
             </Grid>
             <Grid item md={8}>
               <Paper
@@ -316,7 +335,7 @@ export default function Medicine(props) {
                       <Search />
                     </IconButton>
                   </Grid>
-                  <Grid item md={8} className='searchBox p-1 m-1'>
+                  <Grid item md={8} className='searchBox'>
                     <Autocomplete
                       sx={{
                         display: 'block',
@@ -349,7 +368,7 @@ export default function Medicine(props) {
               </Paper>
             </Grid>
           </Grid>
-          <Grid item container direction={"column"} alignItems={"center"} justifyContent={"center"} className="mt-2">
+          <Grid item container direction={"column"} alignItems={"center"} justifyContent={"center"} className="mt-2 pt-2">
             <Grid item container md={12} alignItems={"center"} justifyContent={"center"}>
               <Grid item>
                 <Paper className='p-3'>
