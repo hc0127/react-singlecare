@@ -219,7 +219,7 @@ export default function Medicine(props) {
 
   const changeZipcode = (val) => {
     setTmpZipcode(val);
-    if (val == 5) {
+    if (val && (val.length == 5)) {
       setLoading(true);
       axios.get('v1/zip_code/' + val).then(function (res) {
         setFocusZipcode(false);
