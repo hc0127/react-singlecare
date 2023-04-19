@@ -18,7 +18,7 @@ have developed using react, axios api.
 ### directory structure
 public
 <p>src</p>
-<p> assets</p>
+<p>&nbsp;assets</p>
 <p>    font</p>
 <p>    img</p>
 <p>  config</p>
