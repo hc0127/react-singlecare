@@ -5,25 +5,25 @@
 mocked https://www1.singlecare.com/
 
 ### about project
-this project is for patients that use medicine.
-patients can look for nearest pharmacy and their price depends on brand, form, amount, quantity
+<p>this project is for patients that use medicine.</p>
+<p>patients can look for nearest pharmacy and their price depends on brand, form, amount, quantity</p>
 
 ### framework
 have developed using react, axios api.
 
 ### used UI: 
-  mdb-react-ui-kit(https://www.npmjs.com/package/mdb-react-ui-kit)
-  material UI(https://mui.com/)
+  <p>mdb-react-ui-kit(https://www.npmjs.com/package/mdb-react-ui-kit)</p>
+  <p>material UI(https://mui.com/)</p>
 
 ### directory structure
 public
-src
-  assets
-    font
-    img
-  config
-  pages
+<p>src</p>
+<p> assets</p>
+<p>    font</p>
+<p>    img</p>
+<p>  config</p>
+<p>  pages</p>
 ### special
--used grid for layout
--manage multi array
--theme provider
+<p>used grid for layout</p>
+<p>manage multi array</p>
+<p>theme provider</p>
