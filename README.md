@@ -18,11 +18,12 @@ have developed using react, axios api.
 ### directory structure
 public
 <p>src</p>
-<p>&nbsp;assets</p>
-<p>    font</p>
-<p>    img</p>
-<p>  config</p>
-<p>  pages</p>
+<p>&nbsp;&nbsp;&nbsp;assets</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;font</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;img</p>
+<p>&nbsp;&nbsp;&nbsp;config</p>
+<p>&nbsp;&nbsp;&nbsp;pages</p>
+
 ### special
 <p>used grid for layout</p>
 <p>manage multi array</p>
