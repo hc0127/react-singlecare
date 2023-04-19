@@ -80,7 +80,7 @@ export default function Medicine(props) {
       axios
         .get('https://ipgeolocation.abstractapi.com/v1/?api_key=0b3f6c66786944718acac4aed8b7bf35')
         .then(function (res) {
-          if(res.data.postal_code){
+          if (res.data.postal_code) {
             changeZipcode(res.data.postal_code);
           }
         })

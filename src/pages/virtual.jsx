@@ -25,7 +25,7 @@ import {
   ArrowBackIos
 } from '@mui/icons-material';
 
-import Carousel from 'react-material-ui-carousel'
+import Carousel from 'react-material-ui-carousel';
 
 import axios from '../config/server.config';
 
@@ -64,7 +64,7 @@ export default function Virtual(props) {
     }
   }
   const goDetail = (e, val) => {
-    navigate("/virtualme/" + val.seo_name+'?q='+val.display_name);
+    navigate("/virtualme/" + val.seo_name + '?q=' + val.display_name);
   }
 
   const changePricing = async (e) => {
