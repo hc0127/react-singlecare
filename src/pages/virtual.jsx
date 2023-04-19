@@ -7,9 +7,6 @@ import {
 import {
   Grid,
   Link,
-  Card,
-  CardActionArea,
-  CardContent,
   Typography,
   Paper,
   IconButton,
@@ -21,8 +18,6 @@ import {
 } from '@mui/material';
 import {
   Search,
-  ArrowForwardIos,
-  ArrowBackIos
 } from '@mui/icons-material';
 
 import Carousel from 'react-material-ui-carousel';
