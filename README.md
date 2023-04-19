@@ -9,7 +9,7 @@ mocked https://www1.singlecare.com/
 <p>patients can look for nearest pharmacy and their price depends on brand, form, amount, quantity</p>
 
 ### framework
-have developed using react, axios api.
+have developed using react
 
 ### used UI: 
   <p>mdb-react-ui-kit(https://www.npmjs.com/package/mdb-react-ui-kit)</p>
