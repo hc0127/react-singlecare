@@ -4,26 +4,46 @@
 
 mocked [online website](https://www1.singlecare.com/)
 
-### about project
+### About
 
 this project is for patients that use medicine.
 
 patients can look for nearest pharmacy and their price depends on brand, form, amount, quantity.
 
-### framework
+### Framework
 
-have developed using react
+React.js
 
-### used UI: 
+### Theme: 
 
 [mdb-react-ui-kit](https://www.npmjs.com/package/mdb-react-ui-kit)
   
 [material UI](https://mui.com/)
 
-### implemnted
+### Implemention
 
-used grid for layout
+grid for layout
 
-manage multi array
+multi array
 
 theme provider
+
+## App
+
+### Install
+
+```sh
+npm install
+```
+
+### Start Development
+
+```sh
+npm start
+```
+
+### Build
+
+```sh
+npm run build
+```
