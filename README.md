@@ -2,29 +2,28 @@
 
 ## Introduction
 
-mocked https://www1.singlecare.com/
+mocked [online website](https://www1.singlecare.com/)
 
 ### about project
-<p>this project is for patients that use medicine.</p>
-<p>patients can look for nearest pharmacy and their price depends on brand, form, amount, quantity</p>
+
+this project is for patients that use medicine.
+
+patients can look for nearest pharmacy and their price depends on brand, form, amount, quantity.
 
 ### framework
+
 have developed using react
 
 ### used UI: 
-  <p>mdb-react-ui-kit(https://www.npmjs.com/package/mdb-react-ui-kit)</p>
-  <p>material UI(https://mui.com/)</p>
 
-### directory structure
-public
-<p>src</p>
-<p>&nbsp;&nbsp;&nbsp;assets</p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;font</p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;img</p>
-<p>&nbsp;&nbsp;&nbsp;config</p>
-<p>&nbsp;&nbsp;&nbsp;pages</p>
+[mdb-react-ui-kit](https://www.npmjs.com/package/mdb-react-ui-kit)
+  
+[material UI](https://mui.com/)
 
-### special
-<p>used grid for layout</p>
-<p>manage multi array</p>
-<p>theme provider</p>
+### implemnted
+
+used grid for layout
+
+manage multi array
+
+theme provider
