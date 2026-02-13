@@ -11,7 +11,7 @@
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.3.0",
     "@testing-library/user-event": "^13.5.0",
-    "axios": "^1.7.4",
+    "axios": "^1.13.5",
     "env-cmd": "^10.1.0",
     "mdb-react-ui-kit": "^4.1.0",
     "nodemon": "^2.0.19",
